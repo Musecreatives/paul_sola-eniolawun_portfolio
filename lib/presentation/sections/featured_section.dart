@@ -1,100 +1,109 @@
+// lib/presentation/sections/featured_section.dart
+
 import 'package:flutter/material.dart';
 import '../widgets/projectItem.dart';
 
-class FeaturedSection extends StatefulWidget {
-  const FeaturedSection({super.key});
+class FeaturedSection extends StatelessWidget {
+  const FeaturedSection({Key? key}) : super(key: key);
 
-  @override
-  State<FeaturedSection> createState() => _FeaturedSectionState();
-}
+  // your static data
+  static const _imagePaths = [
+    'assets/images/work-1.png',
+    'assets/images/work-2.png',
+    'assets/images/work-3.png',
+  ];
+  static const _projects = [
+    {
+      'title': 'RapidRobo Website',
+      'desc': 'Rapidrobo is a trading bot product that helps newbies.',
+    },
+    {
+      'title': 'National Centre for Remote Sensing Website',
+      'desc':
+          'NCRS web app is a government‑integrated website for remote‑sensing data.',
+    },
+    {
+      'title': 'Moveables Apps',
+      'desc':
+          'Moveables is a logistics platform for servicing movement of goods in Nigeria.',
+    },
+  ];
 
-class _FeaturedSectionState extends State<FeaturedSection> {
-  // Accent & background colors
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Column(
-                children: [
-                  SizedBox(
-                    width: 640,
-                    height: 250,
-                    child: Image.asset(
-                      'assets/images/work-1.png',
-                      fit: BoxFit.cover,
-                    ),
+    final theme = Theme.of(context).textTheme;
+
+    // layout constants
+    const horizontalPadding = 60.0;
+    const columnGap = 30.0;
+    const imageWidth = 640.0;
+    const imageHeight = 250.0;
+    const imageSpacing = 30.0;
+    const projectSpacing = 16.0;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(horizontal: horizontalPadding),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ← LEFT: the three screenshots
+          Column(
+            children: List.generate(_imagePaths.length, (i) {
+              // shift the 2nd image (index==1) left by 40px
+              final dx = i == 1 ? 60.0 : 0.0;
+              return Padding(
+                padding: const EdgeInsets.only(bottom: imageSpacing),
+                child: Transform.translate(
+                  offset: Offset(dx, 0),
+                  child: SizedBox(
+                    width: imageWidth,
+                    height: imageHeight,
+                    child: Image.asset(_imagePaths[i], fit: BoxFit.contain),
                   ),
-                  SizedBox(height: 30),
-                  Positioned(
-                    top: 0,
-                    left: 400,
-                    child: SizedBox(
-                      width: 640,
-                      height: 250,
-                      child: Image.asset(
-                        'assets/images/work-2.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30),
-                  SizedBox(
-                    width: 640,
-                    height: 250,
-                    child: Image.asset(
-                      'assets/images/work-3.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ],
-              ),
-              Column(
+                ),
+              );
+            }),
+          ),
+
+          const SizedBox(width: columnGap),
+
+          // → RIGHT: heading + project items
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(106.0),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'My featured works',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 48,
-                      fontWeight: FontWeight.w700,
+                    style: theme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 16),
                   Text(
                     'Here are a selection of my recent projects',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 21,
-                      fontWeight: FontWeight.w400,
+                    style: theme.titleMedium,
+                  ),
+                  const SizedBox(height: 16),
+
+                  // each ProjectItem with vertical spacing
+                  for (var p in _projects) ...[
+                    ProjectItem(
+                      title: p['title']!,
+                      description: p['desc']!,
+                      onView: () {
+                        // TODO: navigate to detail
+                      },
                     ),
-                  ),
-                  const SizedBox(height: 10),
-                  Column(
-                    children: [
-                      ProjectItem(
-                        title: 'RapidRobo Website',
-                        description:
-                            'Rapidrobo is a trading bot product that helps newbies.',
-                      ),
-                      ProjectItem(
-                        title: 'National Centre for Remote Sensing Website',
-                        description:
-                            'NCRS app is a government‑integrated website for remote‑sensing data.',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
+                    const SizedBox(height: projectSpacing),
+                  ],
                 ],
               ),
-            ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -10,15 +10,23 @@ class ProjectItem extends StatelessWidget {
   /// Short description below the title
   final String description;
 
+  /// Called when the “View Project” button is tapped
+  final VoidCallback onView;
+
   /// Width of the View Project button
   final double buttonWidth;
 
+  /// Height of the View Project button
+  final double buttonHeight;
+
   const ProjectItem({
-    super.key,
+    Key? key,
     required this.title,
     required this.description,
-    this.buttonWidth = 140,
-  });
+    required this.onView,
+    this.buttonWidth = 320,
+    this.buttonHeight = 70,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +35,7 @@ class ProjectItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Textual info
+          // 1) Textual info grows to fill remaining space
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,19 +43,37 @@ class ProjectItem extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 20,
+                    fontSize: 28,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   description,
-                  style: const TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 14,
-                    color: Colors.black54,
-                  ),
+                  style: const TextStyle(fontSize: 18, color: Colors.black54),
+                ),
+                const SizedBox(height: 10),
+                // 2) View Project button
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // 2a) Left border
+                    Container(
+                      width: 6,
+                      height: buttonHeight,
+                      decoration: BoxDecoration(),
+                    ),
+                    SizedBox(
+                      width: buttonWidth,
+                      height: buttonHeight,
+                      child: ctaButton(
+                        label: 'View Project',
+                        onPressed: onView,
+                        width: buttonWidth,
+                        height: buttonHeight,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
