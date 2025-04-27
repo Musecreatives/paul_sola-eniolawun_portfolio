@@ -1,10 +1,10 @@
 // lib/presentation/sections/featured_section.dart
 
 import 'package:flutter/material.dart';
-import '../widgets/projectItem.dart';
+import '../../../widgets/projectItem.dart';
 
 class FeaturedSection extends StatelessWidget {
-  const FeaturedSection({Key? key}) : super(key: key);
+  const FeaturedSection({super.key});
 
   // your static data
   static const _imagePaths = [
@@ -35,7 +35,7 @@ class FeaturedSection extends StatelessWidget {
 
     // layout constants
     const horizontalPadding = 60.0;
-    const columnGap = 30.0;
+    const columnGap = 20.0;
     const imageWidth = 640.0;
     const imageHeight = 250.0;
     const imageSpacing = 30.0;
@@ -50,7 +50,7 @@ class FeaturedSection extends StatelessWidget {
           Column(
             children: List.generate(_imagePaths.length, (i) {
               // shift the 2nd image (index==1) left by 40px
-              final dx = i == 1 ? 60.0 : 0.0;
+              final dx = i == 1 ? 80.0 : 0.0;
               return Padding(
                 padding: const EdgeInsets.only(bottom: imageSpacing),
                 child: Transform.translate(
@@ -70,7 +70,7 @@ class FeaturedSection extends StatelessWidget {
           // → RIGHT: heading + project items
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(106.0),
+              padding: const EdgeInsets.all(100.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,11 +92,8 @@ class FeaturedSection extends StatelessWidget {
                     ProjectItem(
                       title: p['title']!,
                       description: p['desc']!,
-                      onView: () {
-                        // TODO: navigate to detail
-                      },
+                      onView: () {},
                     ),
-                    const SizedBox(height: projectSpacing),
                   ],
                 ],
               ),

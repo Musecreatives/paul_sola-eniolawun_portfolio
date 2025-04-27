@@ -36,6 +36,9 @@ dependencies:
   cupertino_icons: ^1.0.8
   google_fonts: ^4.0.3
   visibility_detector: ^0.4.0+2
+  atlas_icons: ^0.0.12
+  url_launcher: ^6.3.1
+  font_awesome_flutter: ^10.8.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +66,12 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/images/menu_image_1.png
+    - assets/images/menu_image2.png
+    - assets/images/menu_image3.png
+    - assets/images/menu_image4.png
+    - assets/images/menu_image5.png
+    
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

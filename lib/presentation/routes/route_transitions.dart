@@ -1,57 +1,34 @@
 import 'package:flutter/material.dart';
-import '../configs/constant_sizes.dart';
 
-enum SlidePosition { left, right, bottom, top }
+// sliding animation
+Route createSlideDownRoute(Widget page) {
+  return PageRouteBuilder(
+    transitionDuration: const Duration(milliseconds: 400),
+    reverseTransitionDuration: const Duration(milliseconds: 400),
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      // from y = -1 (off-screen above) to y = 0
+      final tween = Tween(
+        begin: const Offset(0, -1),
+        end: Offset.zero,
+      ).chain(CurveTween(curve: Curves.easeOut));
+      return SlideTransition(position: animation.drive(tween), child: child);
+    },
+  );
+}
 
-class SlideRouteTransition extends PageRouteBuilder {
-  final Widget enterWidget;
-  final SlidePosition position;
-  SlideRouteTransition({
-    required this.enterWidget,
-    this.position = SlidePosition.top,
-    super.settings,
-  }) : super(
-         transitionDuration:
-             position == SlidePosition.top ? duration500 : duration2000,
-         reverseTransitionDuration:
-             position == SlidePosition.top ? duration500 : duration2000,
-         pageBuilder: (
-           BuildContext context,
-           Animation<double> animation,
-           Animation<double> secondaryAnimation,
-         ) {
-           return enterWidget;
-         },
-         transitionsBuilder: (
-           BuildContext context,
-           Animation<double> animation,
-           Animation<double> secondaryAnimation,
-           Widget child,
-         ) {
-           Offset offset = Offset.zero;
-           if (position == SlidePosition.top) {
-             offset = const Offset(0.0, -1.0);
-           } else if (position == SlidePosition.bottom) {
-             offset = const Offset(0.0, 1.0);
-           } else if (position == SlidePosition.left) {
-             offset = const Offset(-1.0, 0.0);
-           } else {
-             offset = const Offset(1.0, 0.0);
-           }
-           return SlideTransition(
-             position: Tween<Offset>(begin: offset, end: Offset.zero).animate(
-               CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-             ),
-             child: SlideTransition(
-               position: Tween<Offset>(begin: Offset.zero, end: offset).animate(
-                 CurvedAnimation(
-                   parent: secondaryAnimation,
-                   curve: Curves.easeInOut,
-                 ),
-               ),
-               child: child,
-             ),
-           );
-         },
-       );
+Route createSlideUpRoute(Widget page) {
+  return PageRouteBuilder(
+    transitionDuration: const Duration(milliseconds: 400),
+    reverseTransitionDuration: const Duration(milliseconds: 400),
+    pageBuilder: (context, animation, secondaryAnimation) => page,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      // from y = +1 (off-screen below) to y = 0
+      final tween = Tween(
+        begin: const Offset(0, 1),
+        end: Offset.zero,
+      ).chain(CurveTween(curve: Curves.easeOut));
+      return SlideTransition(position: animation.drive(tween), child: child);
+    },
+  );
 }
