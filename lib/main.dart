@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:muse_creatives_portfolio/presentation/views/aboutpage/about_page.dart';
+import 'package:muse_creatives_portfolio/presentation/views/about/about_page.dart';
 import 'package:muse_creatives_portfolio/presentation/views/contact/contact_page.dart';
 import 'package:muse_creatives_portfolio/presentation/views/menu/menu_page.dart';
-import 'presentation/views/homepage/homepage.dart';
+import 'presentation/views/home/homepage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();

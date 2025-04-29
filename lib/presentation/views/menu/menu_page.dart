@@ -1,11 +1,11 @@
 // lib/presentation/views/menu/menu_page.dart
 
 import 'package:flutter/material.dart';
-import '../aboutpage/about_page.dart';
+import '../about/about_page.dart';
 import '../certificates/certificates_page.dart';
 import '../contact/contact_page.dart';
 import '../experience/experience_page.dart';
-import '../homepage/homepage.dart';
+import '../home/homepage.dart';
 import '../../routes/route_transitions.dart';
 import '../project/project_page.dart';
 
