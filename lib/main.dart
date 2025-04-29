@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:muse_creatives_portfolio/presentation/views/about/about_page.dart';
 import 'package:muse_creatives_portfolio/presentation/views/certificates/certificates_page.dart';
 import 'package:muse_creatives_portfolio/presentation/views/contact/contact_page.dart';
+import 'package:muse_creatives_portfolio/presentation/views/experience/experience_page.dart';
 import 'package:muse_creatives_portfolio/presentation/views/menu/menu_page.dart';
 import 'presentation/views/home/homepage.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color(0xFF3DA9FC),
         scaffoldBackgroundColor: Colors.transparent,
       ),
-      home: CertificatesPage(),
+      home: ExperiencePage(),
       debugShowCheckedModeBanner: false,
     );
   }
