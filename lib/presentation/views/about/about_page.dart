@@ -5,7 +5,7 @@ import 'package:muse_creatives_portfolio/presentation/configs/constant_color.dar
 import 'package:muse_creatives_portfolio/presentation/widgets/navbar.dart';
 
 class AboutPage extends StatefulWidget {
-  const AboutPage({Key? key}) : super(key: key);
+  const AboutPage({super.key});
 
   @override
   _AboutPageState createState() => _AboutPageState();

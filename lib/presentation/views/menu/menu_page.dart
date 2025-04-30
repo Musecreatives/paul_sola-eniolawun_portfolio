@@ -1,6 +1,7 @@
 // lib/presentation/views/menu/menu_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:muse_creatives_portfolio/presentation/configs/constant_color.dart';
 import '../about/about_page.dart';
 import '../certificates/certificates_page.dart';
 import '../contact/contact_page.dart';
@@ -36,7 +37,7 @@ class _MenuPageState extends State<MenuPage>
   ];
   final pages = const [
     HomePage(),
-    ProjectsPage(),
+    ProjectPage(),
     ExperiencePage(),
     CertificatesPage(),
     AboutPage(),
@@ -45,6 +46,7 @@ class _MenuPageState extends State<MenuPage>
 
   int _hoveredIndex = -1;
 
+  // slide+fade-in for the close button
   late final AnimationController _btnCtrl = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 400),
@@ -68,7 +70,7 @@ class _MenuPageState extends State<MenuPage>
     Navigator.of(context).push(createSlideDownRoute(pages[i]));
   }
 
-  Widget _buildMenuItem(int i, TextStyle baseStyle, bool isMobile) {
+  Widget _buildMenuItem(int i, TextStyle baseStyle) {
     final isHovered = i == _hoveredIndex;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -79,10 +81,7 @@ class _MenuPageState extends State<MenuPage>
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
           color: isHovered ? Colors.white12 : Colors.transparent,
-          padding: EdgeInsets.symmetric(
-            vertical: isMobile ? 8 : 12,
-            horizontal: isMobile ? 16 : 0,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
           child: Text.rich(
             TextSpan(
               children: [
@@ -90,11 +89,11 @@ class _MenuPageState extends State<MenuPage>
                 WidgetSpan(
                   alignment: PlaceholderAlignment.top,
                   child: Transform.translate(
-                    offset: const Offset(2, -8),
+                    offset: const Offset(4, -8),
                     child: Text(
                       (i + 1).toString().padLeft(2, '0'),
                       style: baseStyle.copyWith(
-                        fontSize: baseStyle.fontSize! * 0.3,
+                        fontSize: baseStyle.fontSize! * 0.4,
                         fontWeight: FontWeight.w700,
                       ),
                     ),
@@ -108,16 +107,15 @@ class _MenuPageState extends State<MenuPage>
     );
   }
 
-  Widget _desktopTabletLayout(BoxConstraints bc) {
-    final isDesktop = bc.maxWidth >= 1024;
-    final leftWidth = isDesktop ? bc.maxWidth / 2.5 : bc.maxWidth * 0.4;
-    final baseFontSize = isDesktop ? 30.0 : 26.0;
+  /// ≥1024px: two-panel desktop layout
+  Widget _desktopLayout(BoxConstraints bc) {
+    final leftWidth = bc.maxWidth / 2.5;
+    final baseFontSize = 30.0;
 
     return Stack(
       children: [
         Row(
           children: [
-            // ── LEFT PANEL ─────────────────────────
             Container(
               width: leftWidth,
               color: Colors.black,
@@ -132,13 +130,10 @@ class _MenuPageState extends State<MenuPage>
                   (i) => _buildMenuItem(
                     i,
                     TextStyle(fontSize: baseFontSize, color: Colors.white),
-                    false,
                   ),
                 ),
               ),
             ),
-
-            // ── RIGHT PANEL ─────────────────────────
             Expanded(
               child: Center(
                 child: AnimatedSwitcher(
@@ -160,7 +155,7 @@ class _MenuPageState extends State<MenuPage>
           ],
         ),
 
-        // ── CANCEL BUTTON ─────────────────────────
+        // cancel button
         SlideTransition(
           position: _btnSlide,
           child: FadeTransition(
@@ -194,13 +189,14 @@ class _MenuPageState extends State<MenuPage>
     );
   }
 
+  /// <1024px: unified tablet & mobile list
   Widget _mobileLayout(BoxConstraints bc) {
     final baseFontSize = 24.0;
-
+    //bg
     return SafeArea(
       child: Column(
         children: [
-          // cancel button at top-right
+          // top-right cancel
           Align(
             alignment: Alignment.topRight,
             child: SlideTransition(
@@ -208,7 +204,7 @@ class _MenuPageState extends State<MenuPage>
               child: FadeTransition(
                 opacity: _btnFade,
                 child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white),
+                  icon: const Icon(Icons.close, color: AppColors.kblack),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -217,31 +213,22 @@ class _MenuPageState extends State<MenuPage>
 
           const SizedBox(height: 16),
 
-          // scrollable list of menu items
+          // full screen list of menu items
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: ListView.separated(
+              padding: EdgeInsets.zero,
               itemCount: labels.length,
+              separatorBuilder:
+                  (_, __) => const Divider(
+                    color: AppColors.kbackground,
+                    height: 1,
+                    thickness: 1,
+                  ),
               itemBuilder:
                   (_, i) => _buildMenuItem(
                     i,
-                    TextStyle(fontSize: baseFontSize, color: Colors.white),
-                    true,
+                    TextStyle(fontSize: baseFontSize, color: AppColors.kblack),
                   ),
-            ),
-          ),
-
-          // bottom image preview
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            height: bc.maxHeight * 0.35,
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 300),
-              child: Image.asset(
-                images[(_hoveredIndex >= 0) ? _hoveredIndex : 0],
-                key: ValueKey(_hoveredIndex),
-                fit: BoxFit.contain,
-              ),
             ),
           ),
         ],
@@ -254,8 +241,10 @@ class _MenuPageState extends State<MenuPage>
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, bc) {
-          if (bc.maxWidth >= 600) {
-            return _desktopTabletLayout(bc);
+          // only desktop (≥1024) uses the split‐pane with preview;
+          // all narrower widths use the single‐column list
+          if (bc.maxWidth >= 1024) {
+            return _desktopLayout(bc);
           } else {
             return _mobileLayout(bc);
           }
