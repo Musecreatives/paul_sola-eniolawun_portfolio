@@ -20,7 +20,7 @@ class QuoteSection extends StatefulWidget {
     Key? key,
     required this.quotes,
     this.backgroundColor = const Color(0xFF3993E8),
-    this.switchDuration = const Duration(seconds: 5),
+    this.switchDuration = const Duration(seconds: 8),
   }) : super(key: key);
 
   @override
