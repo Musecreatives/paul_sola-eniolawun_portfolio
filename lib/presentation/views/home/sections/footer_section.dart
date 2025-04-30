@@ -172,7 +172,8 @@ class _FooterSectionState extends State<FooterSection>
                         size: isWide ? 24 : 20,
                       ),
                       onPressed:
-                          () => _launchUrl('https://twitter.com/yourhandle'),
+                          () =>
+                              _launchUrl('https://twitter.com/PaulPauLosTic '),
                     ),
                     IconButton(
                       icon: Icon(
@@ -181,7 +182,7 @@ class _FooterSectionState extends State<FooterSection>
                         size: isWide ? 24 : 20,
                       ),
                       onPressed:
-                          () => _launchUrl('https://discord.gg/yourserver'),
+                          () => _launchUrl('https://discord.gg/paulostic_dev'),
                     ),
                     IconButton(
                       icon: Icon(
@@ -190,8 +191,7 @@ class _FooterSectionState extends State<FooterSection>
                         size: isWide ? 24 : 20,
                       ),
                       onPressed:
-                          () =>
-                              _launchUrl('https://www.figma.com/@yourprofile'),
+                          () => _launchUrl('https://www.figma.com/@paulostic1'),
                     ),
                     IconButton(
                       icon: Icon(
@@ -200,8 +200,9 @@ class _FooterSectionState extends State<FooterSection>
                         size: isWide ? 24 : 20,
                       ),
                       onPressed:
-                          () =>
-                              _launchUrl('https://linkedin.com/in/yourprofile'),
+                          () => _launchUrl(
+                            'https://linkedin.com/in/oluwatisehunla-sola-eniolawun-1670501b1',
+                          ),
                     ),
                     IconButton(
                       icon: Icon(
@@ -210,7 +211,7 @@ class _FooterSectionState extends State<FooterSection>
                         size: isWide ? 24 : 20,
                       ),
                       onPressed:
-                          () => _launchUrl('https://github.com/yourprofile'),
+                          () => _launchUrl('https://github.com/musecreatives'),
                     ),
                   ],
                 ),

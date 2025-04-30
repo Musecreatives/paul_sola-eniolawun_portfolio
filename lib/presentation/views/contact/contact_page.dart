@@ -250,22 +250,22 @@ class _ContactPageState extends State<ContactPage>
                     children: [
                       _socialIcon(
                         FontAwesomeIcons.xTwitter,
-                        'https://twitter.com/yourhandle',
+                        'https://twitter.com/PaulPauLosTic?t=6nLm1Yb64uX1OBeHF2WUZQ&s=09 ',
                       ),
                       const SizedBox(height: 24),
                       _socialIcon(
                         FontAwesomeIcons.figma,
-                        'https://www.figma.com/@yourprofile',
+                        'https://www.figma.com/@paulostic1',
                       ),
                       const SizedBox(height: 24),
                       _socialIcon(
                         FontAwesomeIcons.linkedin,
-                        'https://linkedin.com/in/yourprofile',
+                        'https://linkedin.com/in/oluwatisehunla-sola-eniolawun-1670501b1',
                       ),
                       const SizedBox(height: 24),
                       _socialIcon(
                         FontAwesomeIcons.github,
-                        'https://github.com/yourprofile',
+                        'https://github.com/Musecreatives   ',
                       ),
                     ],
                   ),

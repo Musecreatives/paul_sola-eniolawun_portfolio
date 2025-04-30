@@ -1,19 +1,14 @@
-// lib/presentation/sections/quote_section.dart
+// lib/presentation/views/sections/quote_section.dart
 
 import 'dart:async';
 import 'package:flutter/material.dart';
 import '../../../../data/models/quote.dart';
 
-/// A full-width section that cycles quotes with a fade animation and
-/// adjusts its height, padding and font sizes per screen size.
+enum Breakpoint { mobile, tablet, desktop }
+
 class QuoteSection extends StatefulWidget {
-  /// List of quotes to display
   final List<Quote> quotes;
-
-  /// Background color
   final Color backgroundColor;
-
-  /// Duration between automatic transitions
   final Duration switchDuration;
 
   const QuoteSection({
@@ -34,14 +29,7 @@ class _QuoteSectionState extends State<QuoteSection> {
   @override
   void initState() {
     super.initState();
-    // start the auto-cycle timer
     _timer = Timer.periodic(widget.switchDuration, (_) => _nextQuote());
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
   }
 
   void _nextQuote() {
@@ -51,45 +39,55 @@ class _QuoteSectionState extends State<QuoteSection> {
   }
 
   @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  Breakpoint _breakpoint(double w) {
+    if (w < 600) return Breakpoint.mobile;
+    if (w < 1024) return Breakpoint.tablet;
+    return Breakpoint.desktop;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final quote = widget.quotes[_currentIndex];
 
     return LayoutBuilder(
-      builder: (context, constraints) {
-        final w = constraints.maxWidth;
-        final isDesktop = w >= 800;
-        final isTablet = w >= 600 && w < 800;
-        final isMobile = w < 600;
+      builder: (_, bc) {
+        final w = bc.maxWidth;
+        final bp = _breakpoint(w);
 
-        // responsive measurements
+        // responsive sizing
         final height =
-            isMobile
-                ? constraints.maxHeight * 0.25
-                : isTablet
+            bp == Breakpoint.mobile
+                ? 250.0
+                : bp == Breakpoint.tablet
                 ? 300.0
                 : 400.0;
-        final horizontalPadding =
-            isMobile
+        final hPad =
+            bp == Breakpoint.mobile
                 ? 16.0
-                : isTablet
+                : bp == Breakpoint.tablet
                 ? 32.0
                 : 60.0;
-        final verticalPadding =
-            isMobile
+        final vPad =
+            bp == Breakpoint.mobile
                 ? 24.0
-                : isTablet
+                : bp == Breakpoint.tablet
                 ? 40.0
                 : 60.0;
-        final quoteFontSize =
-            isMobile
+        final quoteSize =
+            bp == Breakpoint.mobile
                 ? 20.0
-                : isTablet
+                : bp == Breakpoint.tablet
                 ? 28.0
                 : 36.0;
-        final authorFontSize =
-            isMobile
+        final authorSize =
+            bp == Breakpoint.mobile
                 ? 14.0
-                : isTablet
+                : bp == Breakpoint.tablet
                 ? 16.0
                 : 18.0;
 
@@ -99,47 +97,35 @@ class _QuoteSectionState extends State<QuoteSection> {
             height: height,
             width: double.infinity,
             color: widget.backgroundColor,
-            padding: EdgeInsets.symmetric(
-              vertical: verticalPadding,
-              horizontal: horizontalPadding,
-            ),
+            padding: EdgeInsets.symmetric(vertical: vPad, horizontal: hPad),
             child: Stack(
               children: [
-                // Centered quote text with fade animation
                 Center(
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 800),
-                    transitionBuilder:
-                        (child, anim) =>
-                            FadeTransition(opacity: anim, child: child),
                     child: Text(
                       '“${quote.name}”',
                       key: ValueKey(quote.name),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: quoteFontSize,
+                        fontSize: quoteSize,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
                 ),
-
-                // Author attribution in bottom-right
                 Positioned(
                   right: 0,
                   bottom: 0,
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 800),
-                    transitionBuilder:
-                        (child, anim) =>
-                            FadeTransition(opacity: anim, child: child),
                     child: Text(
                       '— ${quote.author}',
                       key: ValueKey(quote.author),
                       style: TextStyle(
                         color: Colors.white70,
-                        fontSize: authorFontSize,
+                        fontSize: authorSize,
                         fontStyle: FontStyle.italic,
                       ),
                     ),

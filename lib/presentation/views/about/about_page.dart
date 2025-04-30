@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:muse_creatives_portfolio/presentation/configs/constant_color.dart';
 import 'package:muse_creatives_portfolio/presentation/widgets/navbar.dart';
 
+import '../../widgets/openlink.dart';
 import '../contact/contact_page.dart';
 
 class AboutPage extends StatefulWidget {
@@ -330,21 +331,28 @@ class _AboutPageState extends State<AboutPage>
                         FontAwesomeIcons.figma,
                         color: AppColors.ktextPrimary,
                       ),
-                      onPressed: () {},
+                      onPressed:
+                          () => openLink(
+                            'https://www.figma.com/@paulsolaeniolawun',
+                          ),
                     ),
                     IconButton(
                       icon: Icon(
                         FontAwesomeIcons.linkedin,
                         color: AppColors.ktextPrimary,
                       ),
-                      onPressed: () {},
+                      onPressed:
+                          () => openLink(
+                            'https://www.linkedin.com/in/paul-sola-eniolawun',
+                          ),
                     ),
                     IconButton(
                       icon: Icon(
                         FontAwesomeIcons.github,
                         color: AppColors.ktextPrimary,
                       ),
-                      onPressed: () {},
+                      onPressed:
+                          () => openLink('https://github.com/Musecreatives'),
                     ),
                   ],
                 ),
