@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:muse_creatives_portfolio/presentation/views/menu/menu_page.dart';
 import '../routes/route_transitions.dart';
 import '../views/home/homepage.dart';
+import 'menu_toggle.dart';
 
 class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
   const NavbarWidget({super.key});
@@ -35,33 +36,7 @@ class NavbarWidget extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         centerTitle: false,
-        actions: [
-          GestureDetector(
-            onTap: () {
-              Navigator.of(
-                context,
-              ).push(createSlideDownRoute(const MenuPage()));
-            },
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              spacing: 8,
-              children: [
-                Container(
-                  width: 55,
-                  height: 4,
-                  decoration: BoxDecoration(color: const Color(0xFF3695E5)),
-                ),
-                Container(
-                  width: 35,
-                  height: 4,
-                  decoration: BoxDecoration(color: const Color(0xFF3695E5)),
-                ),
-              ],
-            ),
-          ),
-        ],
+        actions: [MenuToggleButton(), const SizedBox(width: 8)],
       ),
     );
   }

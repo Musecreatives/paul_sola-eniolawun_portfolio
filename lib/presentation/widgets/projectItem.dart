@@ -1,7 +1,10 @@
 // lib/widgets/project_item.dart
 
 import 'package:flutter/material.dart';
+import 'package:muse_creatives_portfolio/data/models/project.dart';
 import 'package:muse_creatives_portfolio/presentation/widgets/cta_button.dart';
+
+import '../views/project/project_page.dart';
 
 class ProjectItem extends StatelessWidget {
   /// Project title, e.g. “RapidRobo Website”
@@ -9,9 +12,6 @@ class ProjectItem extends StatelessWidget {
 
   /// Short description below the title
   final String description;
-
-  /// Called when the “View Project” button is tapped
-  final VoidCallback onView;
 
   /// Width of the View Project button
   final double buttonWidth;
@@ -23,7 +23,6 @@ class ProjectItem extends StatelessWidget {
     Key? key,
     required this.title,
     required this.description,
-    required this.onView,
     this.buttonWidth = 320,
     this.buttonHeight = 70,
   }) : super(key: key);
@@ -68,7 +67,14 @@ class ProjectItem extends StatelessWidget {
                       height: buttonHeight,
                       child: ctaButton(
                         label: 'View Project',
-                        onPressed: onView,
+                        onPressed: () {
+                          // Handle button tap
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ProjectPage(),
+                            ),
+                          );
+                        },
                         width: buttonWidth,
                         height: buttonHeight,
                       ),

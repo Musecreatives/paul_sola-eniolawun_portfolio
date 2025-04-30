@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 // sliding animation
 Route createSlideDownRoute(Widget page) {
   return PageRouteBuilder(
-    transitionDuration: const Duration(milliseconds: 400),
-    reverseTransitionDuration: const Duration(milliseconds: 400),
+    transitionDuration: const Duration(milliseconds: 300),
+    reverseTransitionDuration: const Duration(milliseconds: 200),
     pageBuilder: (context, animation, secondaryAnimation) => page,
     transitionsBuilder: (context, animation, secondaryAnimation, child) {
       // from y = -1 (off-screen above) to y = 0

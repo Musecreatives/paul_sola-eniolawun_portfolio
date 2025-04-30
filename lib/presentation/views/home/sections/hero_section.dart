@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:muse_creatives_portfolio/presentation/views/project/project_page.dart';
 import 'package:muse_creatives_portfolio/presentation/widgets/hireMe_Button.dart';
 
 class HeroSection extends StatefulWidget {
@@ -333,7 +334,10 @@ class _HeroSectionState extends State<HeroSection>
                   width: 350,
                   height: 80,
                   onPressed: () {
-                    // Handle button press
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProjectPage()),
+                    );
                   },
                 ),
               ],

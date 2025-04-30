@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:muse_creatives_portfolio/presentation/configs/constant_color.dart';
 import 'package:muse_creatives_portfolio/presentation/widgets/navbar.dart';
 
+import '../contact/contact_page.dart';
+
 class AboutPage extends StatefulWidget {
   const AboutPage({super.key});
 
@@ -109,7 +111,10 @@ class _AboutPageState extends State<AboutPage>
         const SizedBox(height: 32),
         InkWell(
           onTap: () {
-            // your “send message” action
+            //contact me
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const ContactPage()),
+            );
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,

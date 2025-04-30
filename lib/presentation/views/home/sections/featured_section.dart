@@ -93,9 +93,6 @@ class FeaturedSection extends StatelessWidget {
                             child: ProjectItem(
                               title: p['title']!,
                               description: p['desc']!,
-                              onView: () {
-                                // handle “View” tap
-                              },
                             ),
                           ),
                         ),
@@ -154,9 +151,6 @@ class FeaturedSection extends StatelessWidget {
                     child: ProjectItem(
                       title: p['title']!,
                       description: p['desc']!,
-                      onView: () {
-                        // handle “View” tap
-                      },
                     ),
                   ),
                 ),
