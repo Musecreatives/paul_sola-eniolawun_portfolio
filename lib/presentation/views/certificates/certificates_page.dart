@@ -22,15 +22,22 @@ class CertificatesPage extends StatelessWidget {
     Certificate(
       title: 'Diploma in Web Design and Development',
       specialization: ['Software Development', 'Website Development'],
-      tools: ['Adobe Suite', 'Figma', 'Illustrator'],
+      tools: ['JavaScript', 'Figma', 'WordPress', 'ReactJs', 'NodeJs'],
       imageAsset: 'assets/images/diploma_edobits_cert_2.png',
       date: '03-07-2020',
       subtitle: 'Completed a 2 year diploma in web design and development.',
     ),
     Certificate(
       title: 'Digital Garage Completion',
-      specialization: ['MS Office', 'Graphic Design'],
-      tools: ['PowerPoint', 'Photoshop'],
+      specialization: ['MS Office', 'Graphic Design', 'Soft Skills'],
+      tools: [
+        'PowerPoint',
+        'Photoshop',
+        'Illustrator',
+        'Indesign',
+        'Framer',
+        'Figma',
+      ],
       imageAsset: 'assets/images/digital_garage_edobits.png',
       date: '20-12-2019',
       subtitle:
