@@ -1,0 +1,18 @@
+<!-- @dsCard group="Wayfinding" height=220 -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@500&family=Montserrat:ital,wght@1,400&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:var(--wall);color:var(--ink)}
+.wrap{padding:32px 40px;display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap}
+.col{display:flex;flex-direction:column;gap:12px}
+.lbl{font-family:"JetBrains Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gilt-light)}
+h2{margin:0;font-family:"Montserrat Alternates",sans-serif;font-weight:500;font-size:56px;line-height:1}
+.rule{width:120px;height:2px;background:var(--gilt);transform-origin:left;animation:draw 1.2s cubic-bezier(.2,.7,.1,1) both}
+.ep{max-width:380px;display:flex;flex-direction:column;gap:6px}
+.ep q{font-family:"Montserrat",sans-serif;font-style:italic;font-size:15px;line-height:1.6;color:var(--ink-muted)}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.rule{animation:none}}
+</style>
+<div class="wrap">
+<div class="col"><span class="lbl">Room II</span><h2>Selected Works</h2><div class="rule"></div></div>
+<div class="ep"><q>Waste no more time arguing what a good man should be. Be one.</q><span class="lbl" style="color:var(--ink-muted)">Marcus Aurelius · Meditations X.16</span></div>
+</div>

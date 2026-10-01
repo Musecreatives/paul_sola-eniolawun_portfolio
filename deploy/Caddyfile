@@ -1,0 +1,19 @@
+# Automatic HTTPS for the site (docker compose --profile tls).
+# DOMAIN comes from .env; its DNS A/AAAA records must point at this server and
+# ports 80 and 443 must be reachable for the Let's Encrypt / ZeroSSL challenge.
+
+{$DOMAIN} {
+	encode zstd gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		-Server
+	}
+
+	# nginx (web) serves the app and proxies /api/ and /_/ to PocketBase.
+	# Caddy sets X-Forwarded-For/-Proto/-Host itself; flush_interval -1 keeps
+	# PocketBase realtime (SSE) streaming.
+	reverse_proxy web:80 {
+		flush_interval -1
+	}
+}

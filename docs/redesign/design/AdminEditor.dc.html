@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Journal editor</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="adm" style="width: 1440px; height: 1100px; display: flex; flex-direction: column">
+<header style="display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 16px 28px; background: #fff; border-bottom: 1px solid #E4E0F0">
+<div style="display: flex; align-items: center; gap: 16px">
+<a href="#" class="ul" style="font-size: 14px; color: #1F3A93">← Journal</a>
+<span class="chip" style="background: #EEE9F8; color: #4B1F5E">Draft</span>
+<span class="mono" style="font-size: 12px; color: #575170">Saved [12s ago]</span>
+</div>
+<div style="display: flex; gap: 10px">
+<a href="#" class="btn2" style="min-height: 44px; font-size: 14px; color: #1C1830; border-color: rgba(28,24,48,.3)">Preview</a>
+<a href="#" class="btn btn-ink" style="min-height: 44px; font-size: 14px">Save draft</a>
+<a href="#" class="btn" style="min-height: 44px; font-size: 14px">Publish</a>
+</div>
+</header>
+
+<div style="flex-grow: 1; display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr) 340px; min-height: 0">
+<section aria-label="Editor" style="padding: 28px; display: flex; flex-direction: column; gap: 16px; border-right: 1px solid #E4E0F0">
+<label for="e-title" style="position: absolute; left: -9999px">Title</label>
+<input id="e-title" class="alt" type="text" value="[Sample: what Stoicism taught me about on-call]" style="border: none; background: transparent; font-size: 30px; font-weight: 600; color: #1C1830; padding: 0; outline: none; width: 100%">
+<div class="mono" style="font-size: 12px; color: #575170">/journal/<span style="color: #1F3A93">stoicism-on-call</span></div>
+<div role="toolbar" aria-label="Formatting" style="display: flex; gap: 4px; border: 1px solid #E4E0F0; background: #fff; padding: 6px; align-self: flex-start">
+<button aria-label="Bold" style="width: 36px; height: 36px; border: none; background: none; font-weight: 700; cursor: pointer">B</button>
+<button aria-label="Italic" style="width: 36px; height: 36px; border: none; background: none; font-style: italic; cursor: pointer">I</button>
+<button aria-label="Heading" style="width: 36px; height: 36px; border: none; background: none; font-weight: 600; cursor: pointer">H2</button>
+<button aria-label="Quote" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer">“</button>
+<button aria-label="Code block" class="mono" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer; letter-spacing: 0">&lt;/&gt;</button>
+<button aria-label="Link" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"></path><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"></path></svg></button>
+<button aria-label="Insert image" style="width: 36px; height: 36px; border: none; background: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14"></rect><path d="M3 16l5-5 4 4 3-3 6 6"></path></svg></button>
+<button aria-label="Margin note" class="mono" style="height: 36px; border: none; background: none; cursor: pointer; font-size: 12px; letter-spacing: .06em; padding: 0 8px">Marginalia</button>
+</div>
+<label for="e-body" style="position: absolute; left: -9999px">Body (Markdown)</label>
+<textarea id="e-body" style="flex-grow: 1; border: 1px solid #E4E0F0; background: #fff; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.8; color: #2A2545; resize: none">Every system eventually wakes someone at night.
+
+## The dichotomy of control
+
+&gt; "Some things are within our power, while others are not."
+&gt; — Epictetus
+
+```yaml
+alert: api_latency_p99
+within_control: [runbook, rollback, comms]
+```
+
+:::margin
+Side notes render in the margin.
+:::</textarea>
+<div class="mono" style="font-size: 12px; color: #575170">Markdown · [412] words · [3] min read</div>
+</section>
+
+<section aria-label="Live preview" style="padding: 28px; background: #FAF7F0; display: flex; flex-direction: column; gap: 18px; overflow: hidden; border-right: 1px solid #E4E0F0">
+<div class="mono" style="font-size: 12px; color: #4B1F5E">Live preview</div>
+<div class="frame frame-sm" style="box-shadow: 0 16px 32px rgba(28,24,48,.2)"><div class="win" style="aspect-ratio: 21 / 9"><img class="art" src="assets/menu_image4.png" alt="Cover: The Death of Socrates"></div></div>
+<div class="alt" style="font-size: 26px; font-weight: 600; line-height: 1.15">[Sample: what Stoicism taught me about on-call]</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.75; color: #2A2545">Every system eventually wakes someone at night.</p>
+<div class="alt" style="font-size: 20px; font-weight: 600">The dichotomy of control</div>
+<blockquote style="margin: 0; padding-left: 18px; border-left: 2px solid #C9A24A; font-style: italic; color: #4B1F5E; font-size: 16px; line-height: 1.6">“Some things are within our power, while others are not.”</blockquote>
+<div style="background: #0E0C26; color: #D6D0EA; padding: 14px 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.7"><span style="color: #A8B9FF">alert</span>: api_latency_p99<br><span style="color: #A8B9FF">within_control</span>: [runbook, rollback, comms]</div>
+</section>
+
+<aside aria-label="Entry settings" style="padding: 24px; display: flex; flex-direction: column; gap: 18px; background: #fff; overflow: hidden">
+<div class="field"><label class="label" for="e-status">Status</label><select id="e-status" class="input"><option>Draft</option><option>Scheduled</option><option>Published</option></select></div>
+<div class="field"><label class="label" for="e-date">Publish on</label><input id="e-date" class="input" type="datetime-local"></div>
+<div class="field"><label class="label" for="e-cat">Category</label><select id="e-cat" class="input"><option>Leadership</option><option>Engineering</option><option>Design</option><option>Notes</option></select></div>
+<div class="field"><span class="label">Tags</span>
+<div style="display: flex; flex-wrap: wrap; gap: 6px"><span class="chip" style="background: #E3E9FF; color: #1F3A93">stoicism ×</span><span class="chip" style="background: #E3E9FF; color: #1F3A93">on-call ×</span><span class="chip" style="background: #E3E9FF; color: #1F3A93">sre ×</span><span class="chip" style="border: 1px dashed #B9B3D0; color: #575170">+ add</span></div></div>
+<div class="field"><span class="label">Cover painting</span>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+<div style="aspect-ratio: 1; overflow: hidden; outline: 3px solid #2D4FC4; outline-offset: 1px"><img src="assets/menu_image4.png" alt="The Death of Socrates" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.3)"></div>
+<div style="aspect-ratio: 1; overflow: hidden"><img src="assets/menu_image3.png" alt="The School of Athens" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.3)"></div>
+<div style="aspect-ratio: 1; overflow: hidden"><img src="assets/menu_image2.png" alt="Boxer at Rest" style="width: 100%; height: 100%; object-fit: cover; object-position: 85% 50%"></div>
+<div style="aspect-ratio: 1; overflow: hidden"><img src="assets/menu_image5.png" alt="Marcus Aurelius fragment" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.3)"></div>
+<div style="aspect-ratio: 1; overflow: hidden"><img src="assets/menu_image6.png" alt="Marcus Aurelius bust" style="width: 100%; height: 100%; object-fit: cover; transform: scale(1.3)"></div>
+<div style="aspect-ratio: 1; border: 1px dashed #B9B3D0; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #575170">Upload</div>
+</div></div>
+<div class="field"><label class="label" for="e-ex">Excerpt</label><textarea id="e-ex" class="input" rows="3">[Shown on the Journal index and in link previews.]</textarea></div>
+</aside>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

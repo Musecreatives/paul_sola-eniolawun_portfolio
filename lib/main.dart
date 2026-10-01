@@ -1,29 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'presentation/views/home/homepage.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-void main() {
+import 'app.dart';
+import 'data/api.dart';
+import 'data/store.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Muse Creative - Paul Sola-Eniolawun',
-      theme: ThemeData(
-        // set Montserrat as the default text theme:
-        textTheme: GoogleFonts.montserratAlternatesTextTheme(
-          Theme.of(context).textTheme,
-        ),
-        primaryColor: const Color(0xFF3DA9FC),
-        scaffoldBackgroundColor: Colors.transparent,
-      ),
-      home: HomePage(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
+  usePathUrlStrategy();
+  // Rise-in starts promptly when a frame scrolls into view.
+  VisibilityDetectorController.instance.updateInterval = const Duration(milliseconds: 100);
+  final pb = pocketBase();
+  final store = ContentStore(await ContentStore.loadBundled(), api: pb == null ? null : GalleryApi(pb));
+  runApp(Content(store: store, child: const CollectionApp()));
+  // Paint the bundled rooms first, then hang the CMS content when it arrives.
+  store.refresh();
 }

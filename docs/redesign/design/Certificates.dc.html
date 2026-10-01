@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Certificates</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="wall-indigo sans" style="position: relative; min-height: 1850px; color: #F3EEE3; padding: 96px 40px 120px; box-sizing: border-box">
+<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 72px">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="mono rise" style="color: #E2C57F">Room IV</div>
+<h2 class="alt rise d1" style="margin: 0; font-weight: 500; font-size: clamp(44px, 5vw, 68px); line-height: 1">Certificates</h2>
+<div class="draw d2" style="width: 120px; height: 2px; background: #C9A24A"></div>
+</div>
+<div class="rise d2" style="max-width: 420px; display: flex; flex-direction: column; gap: 8px">
+<div style="font-style: italic; font-size: 16px; line-height: 1.6; color: #A9A3C4">“No man is free who is not master of himself.”</div>
+<div class="mono" style="font-size: 12px; color: #8F88B0">Epictetus · Discourses</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 28px">
+<div class="mono" style="color: #A8B9FF">Earned · {{count}} pieces · click to examine</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 36px">
+<sc-for list="{{certs}}" as="c" hint-placeholder-count="6">
+<button onClick="{{c.open}}" class="rise" aria-label="Preview {{c.title}}" style="background: none; border: none; padding: 0; text-align: left; color: #F3EEE3; font: inherit; cursor: zoom-in; display: flex; flex-direction: column; gap: 18px">
+<div class="frame frame-sm" style="width: 100%; box-sizing: border-box">
+<sc-if value="{{c.hasImg}}" hint-placeholder-val="{{ true }}">
+<div class="win" style="aspect-ratio: 4 / 3; background: #fff"><img src="{{c.img}}" alt="{{c.title}} certificate" style="display: block; width: 100%; height: 100%; object-fit: contain"></div>
+</sc-if>
+<sc-if value="{{c.noImg}}" hint-placeholder-val="{{ false }}">
+<div class="plate" style="aspect-ratio: 4 / 3; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; text-align: center; padding: 20px; box-sizing: border-box">
+<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#4B1F5E" stroke-width="1.4"><circle cx="12" cy="9" r="5"></circle><path d="M8.5 13l-1.5 8 5-3 5 3-1.5-8"></path></svg>
+<div class="alt" style="font-weight: 600; font-size: 18px; color: #1F3A93">{{c.title}}</div>
+<div class="mono" style="font-size: 12px; color: #575170">[Scan to upload]</div>
+</div>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span class="mono" style="font-size: 12px; color: #E2C57F">{{c.issuer}} · {{c.year}}</span>
+<span class="alt" style="font-size: 18px; font-weight: 600">{{c.title}}</span>
+</div>
+</button>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 24px">
+<div class="mono" style="color: #CDB3EE">In the studio · in progress</div>
+<sc-for list="{{pending}}" as="p" hint-placeholder-count="3">
+<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr) 60px; gap: 24px; align-items: center; border-top: 1px solid rgba(205,179,238,.2); padding: 20px 0">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="alt" style="font-size: 19px; font-weight: 600">{{p.title}}</span><span class="mono" style="font-size: 12px; color: #A9A3C4">{{p.issuer}}</span></div>
+<span class="mono" style="font-size: 12px; color: #A9A3C4">Target {{p.target}}</span>
+<div style="height: 6px; background: rgba(205,179,238,.18)"><div class="draw" style="height: 6px; width: {{p.pct}}; background: linear-gradient(90deg, #2D4FC4, #7A3FA0)"></div></div>
+<span class="mono" style="font-size: 12px; color: #CDB3EE; text-align: right">{{p.pct}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<sc-if value="{{isOpen}}" hint-placeholder-val="{{ false }}">
+<div role="dialog" aria-modal="true" aria-label="Certificate preview" class="fadein" style="position: absolute; inset: 0; background: rgba(8,6,22,.92); display: flex; align-items: flex-start; justify-content: center; padding: 120px 40px">
+<div style="width: 100%; max-width: 1040px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 40px; align-items: center; position: sticky; top: 120px">
+<div class="frame" style="padding: 20px">
+<sc-if value="{{cur.hasImg}}" hint-placeholder-val="{{ true }}">
+<div style="aspect-ratio: 4 / 3; background: #fff"><img src="{{cur.img}}" alt="{{cur.title}} certificate" style="display: block; width: 100%; height: 100%; object-fit: contain"></div>
+</sc-if>
+<sc-if value="{{cur.noImg}}" hint-placeholder-val="{{ false }}">
+<div class="plate" style="aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center"><span class="alt" style="font-size: 26px; font-weight: 600; color: #1F3A93">{{cur.title}}</span></div>
+</sc-if>
+</div>
+<div class="placard" style="gap: 14px; padding: 26px">
+<div class="mono" style="font-size: 12px; color: #4B1F5E">{{cur.issuer}} · {{cur.year}}</div>
+<div class="alt" style="font-weight: 600; font-size: 24px; line-height: 1.15">{{cur.title}}</div>
+<a href="#" class="mono ul" style="align-self: flex-start; font-size: 12px; color: #1F3A93; padding-bottom: 3px">Verify credential ↗</a>
+<div style="display: flex; gap: 10px; margin-top: 10px">
+<button onClick="{{prev}}" aria-label="Previous certificate" style="width: 44px; height: 44px; border: 1px solid rgba(28,24,48,.3); background: none; cursor: pointer">←</button>
+<button onClick="{{next}}" aria-label="Next certificate" style="width: 44px; height: 44px; border: 1px solid rgba(28,24,48,.3); background: none; cursor: pointer">→</button>
+<button onClick="{{close}}" class="btn btn-ink" style="min-height: 44px; padding: 0 18px; font-size: 14px; margin-left: auto">Close</button>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"previewOpen":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":1850}}'>
+class Component extends DCLogic {
+renderVals() {
+const raw = [
+{ title: 'Digital Garage', issuer: 'EdoBits ICT Academy', year: '2019', img: 'assets/digital_garage_edobits.png' },
+{ title: 'ICT Diploma', issuer: 'EdoBits ICT Academy', year: '2020', img: 'assets/diploma_edobits_cert_2.png' },
+{ title: 'HNGx Finalist', issuer: 'HNG Internship', year: '[YEAR]', img: 'assets/hngx_finalist-cert_1.png' },
+{ title: 'Branding & Brand Strategy', issuer: 'EdoBits ICT Academy', year: '2019', img: '' },
+{ title: 'Junior Developer Training', issuer: 'Tunga.io', year: '2021', img: '' },
+{ title: 'Data Structures & Algorithms (JS)', issuer: 'freeCodeCamp', year: '2021', img: '' }
+];
+const s = this.state || {};
+const n = raw.length;
+const open = s.open !== undefined ? s.open : (this.props.previewOpen ? 0 : -1);
+const certs = raw.map((c, i) => ({ ...c, hasImg: !!c.img, noImg: !c.img, open: () => this.setState({ open: i }) }));
+return {
+certs,
+count: n,
+isOpen: open >= 0,
+cur: open >= 0 ? certs[open] : certs[0],
+close: () => this.setState({ open: -1 }),
+next: () => this.setState({ open: (open + 1) % n }),
+prev: () => this.setState({ open: (open - 1 + n) % n }),
+pending: [
+{ title: '[Certification in progress]', issuer: '[Issuer]', target: '[Month YYYY]', pct: '60%' },
+{ title: '[Certification in progress]', issuer: '[Issuer]', target: '[Month YYYY]', pct: '35%' },
+{ title: '[Certification in progress]', issuer: '[Issuer]', target: '[Month YYYY]', pct: '10%' }
+]
+};
+}
+}
+</script>
+</body>
+</html>

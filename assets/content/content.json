@@ -1,0 +1,210 @@
+{
+  "_comment": "Bundled fallback content and the seed for PocketBase (seed/seed.mjs). Anything in [brackets] is unknown: Paul fills it in from the CMS. Field names match pb_migrations/.",
+  "now": {
+    "building": "Synkkafrica's admin ecosystem",
+    "reading": "[book]"
+  },
+  "works": [
+    {
+      "title": "Synkkafrica",
+      "slug": "synkkafrica",
+      "numeral": "I",
+      "inventory": "PSE–2025–01",
+      "headline": "Synkkafrica: a multi-service marketplace",
+      "summary": "Owning architecture across backend, frontend and infrastructure, plus an admin ecosystem for vendor onboarding, transaction oversight and content management.",
+      "lede": "Engineering a multi-service marketplace and the admin ecosystem behind it, from architecture to the team that ships it.",
+      "body": "## The brief\n\n[Two or three sentences on the problem Synkkafrica solves and who it serves.]\n\n## What I did\n\n- Owned architecture across backend, frontend and infrastructure for scalability, security and availability.\n- Led teams on Next.js, Node.js and Flutter; set up CI/CD pipelines and performance standards.\n- Designed and shipped the admin ecosystem: vendor onboarding, transaction oversight, content management.\n- Turned business goals into technical roadmaps and built an engineering culture of ownership.",
+      "medium": "Next.js, Node.js, Flutter",
+      "tags": "Marketplace · Admin ecosystem · CI/CD",
+      "role": "VP of Engineering",
+      "year": "2025 – present",
+      "dated": "Jun 2025 – present",
+      "team": "[Team size]",
+      "platforms": "[Web, iOS, Android]",
+      "links": [{"label": "Visit live site", "url": ""}],
+      "images": [],
+      "featured": true,
+      "visible": true,
+      "order": 1,
+      "extra": {
+        "wall_label": "Commissioned by Synkkafrica Ltd, Delaware. Built in Next.js, Node.js and Flutter, with CI/CD on [platform].",
+        "hero": "[Hero screenshot: marketplace home]",
+        "architecture": {
+          "clients": ["Web · Next.js", "Apps · Flutter"],
+          "service": "Node.js API",
+          "service_note": "[Vendors · Payments · CMS]",
+          "data": "[Database]"
+        },
+        "metrics": [
+          {"value": "[Metric]", "label": "[What it measures]"},
+          {"value": "[Metric]", "label": "[What it measures]"},
+          {"value": "[Metric]", "label": "[What it measures]"}
+        ],
+        "gallery": ["[Admin: vendor onboarding]", "[Admin: transactions]", "[Mobile app]"]
+      }
+    },
+    {
+      "title": "ShaddaiConnect",
+      "slug": "shaddaiconnect",
+      "numeral": "II",
+      "summary": "RADIUS voucher and subscriber management for a community WiFi ISP, with Paystack billing.",
+      "medium": "NestJS · Next.js · pfSense",
+      "year": "[YEAR]",
+      "visible": true,
+      "order": 2
+    },
+    {
+      "title": "NCRS GeoSmart",
+      "slug": "ncrs-geosmart",
+      "numeral": "III",
+      "summary": "GIS platform for remote-sensing data with Mapbox and Leaflet. API responses 30% faster.",
+      "medium": "Next.js · Express · PostgreSQL",
+      "role": "Software Engineer",
+      "year": "2024",
+      "visible": true,
+      "order": 3
+    },
+    {
+      "title": "RapidRobo",
+      "slug": "rapidrobo",
+      "numeral": "IV",
+      "summary": "Animated, responsive landing page for a trading-robot company.",
+      "medium": "Flutter Web · Netlify",
+      "role": "Frontend Developer (Flutter)",
+      "year": "2025",
+      "dated": "Feb – Apr 2025",
+      "links": [{"label": "Visit live site", "url": "https://rapidrobo.org"}],
+      "visible": true,
+      "order": 4
+    },
+    {
+      "title": "Moveables",
+      "slug": "moveables",
+      "numeral": "V",
+      "summary": "Logistics platform connecting SMEs with vetted delivery providers.",
+      "medium": "Flutter · Firebase · Node.js",
+      "year": "2022 –",
+      "links": [{"label": "Visit live site", "url": "https://moveable.com.ng"}],
+      "visible": true,
+      "order": 5
+    },
+    {
+      "title": "Comic Reader",
+      "slug": "comic-reader",
+      "numeral": "VI",
+      "summary": "Self-hosted comic and manga reader modelled on Panels and Paperback.",
+      "medium": "Flutter · Komga · Suwayomi",
+      "year": "[YEAR]",
+      "visible": true,
+      "order": 6
+    },
+    {
+      "title": "BrainPlay",
+      "slug": "brainplay",
+      "numeral": "VII",
+      "summary": "Gamified learning platform for secondary-school students. BSc thesis.",
+      "medium": "Flutter · Firebase",
+      "year": "2024",
+      "visible": true,
+      "order": 7
+    }
+  ],
+  "roles": [
+    {"year": "2025", "role": "VP of Engineering", "org": "Synkkafrica Ltd", "dates": "Jun 2025 – present", "start": "2025-06", "current": true, "summary": "Engineering strategy and architecture for a multi-service marketplace. Also Senior Developer / Technical Lead.", "highlights": ["Owns architecture across backend, frontend, infra", "Leads teams on Next.js, Node.js and Flutter"], "linked_work": "synkkafrica", "order": 1, "visible": true},
+    {"year": "2025", "role": "Co-Founder · COO", "org": "Innovated Digital", "dates": "Apr 2025 – present", "start": "2025-04", "current": true, "summary": "Product strategy across web and mobile delivery; client and partner relationships.", "order": 2, "visible": true},
+    {"year": "2025", "role": "Frontend Developer (Flutter)", "org": "RapidRobo Ltd", "dates": "Feb – Apr 2025", "start": "2025-02", "end": "2025-04", "summary": "Responsive Flutter Web landing page with animation, deployed on Netlify.", "linked_work": "rapidrobo", "order": 3, "visible": true},
+    {"year": "2024", "role": "Full Stack Developer (Next.js)", "org": "ProxyLogic, Lagos", "dates": "Apr – Nov 2024", "start": "2024-04", "end": "2024-11", "summary": "Next.js, TypeScript and Tailwind with SSR/SSG, REST and GraphQL, on Vercel and AWS.", "order": 4, "visible": true},
+    {"year": "2024", "role": "Software Engineer", "org": "National Centre for Remote Sensing", "dates": "2024", "summary": "Led GeoSmart, a GIS platform. Node/Express/PostgreSQL, Docker CI/CD, 30% faster APIs.", "linked_work": "ncrs-geosmart", "order": 5, "visible": true},
+    {"year": "2022", "role": "Software Engineer (Flutter/Node.js)", "org": "RobyHub Optimum Services", "dates": "Nov 2022 – Apr 2023", "start": "2022-11", "end": "2023-04", "summary": "UI and data visualisation work that lifted sales by 15%.", "order": 6, "visible": true},
+    {"year": "2022", "role": "Front-End & Full-Stack Developer", "org": "GIZ / SEDIN-GIZ Initiative", "dates": "Jun – Nov 2022", "start": "2022-06", "end": "2022-11", "summary": "React and Node.js management systems for beneficiaries and trainers.", "order": 7, "visible": true},
+    {"year": "2021", "role": "Front Developer", "org": "iConcept Solutions, New York", "dates": "Jan – Mar 2021", "start": "2021-01", "end": "2021-03", "summary": "Remote front-end work, maintaining and scaling the company site.", "order": 8, "visible": true},
+    {"year": "2020", "role": "Frontend Developer", "org": "Shaddai Communications", "dates": "Jan 2020 – Nov 2021", "start": "2020-01", "end": "2021-11", "summary": "Design concepts and front-end work for marketing campaigns.", "order": 9, "visible": true}
+  ],
+  "certificates": [
+    {"title": "Digital Garage", "issuer": "EdoBits ICT Academy", "year": "2019", "image": "assets/img/cert_digital_garage.webp", "status": "earned", "order": 1},
+    {"title": "ICT Diploma", "issuer": "EdoBits ICT Academy", "year": "2020", "image": "assets/img/cert_ict_diploma.webp", "status": "earned", "order": 2},
+    {"title": "HNGx Finalist", "issuer": "HNG Internship", "year": "[YEAR]", "image": "assets/img/cert_hngx_finalist.webp", "status": "earned", "order": 3},
+    {"title": "Branding & Brand Strategy", "issuer": "EdoBits ICT Academy", "year": "2019", "status": "earned", "order": 4},
+    {"title": "Junior Developer Training", "issuer": "Tunga.io", "year": "2021", "status": "earned", "order": 5},
+    {"title": "Data Structures & Algorithms (JS)", "issuer": "freeCodeCamp", "year": "2021", "status": "earned", "order": 6},
+    {"title": "[Certification in progress]", "issuer": "[Issuer]", "target": "[Month YYYY]", "status": "in_progress", "progress": 60, "order": 7},
+    {"title": "[Certification in progress]", "issuer": "[Issuer]", "target": "[Month YYYY]", "status": "in_progress", "progress": 35, "order": 8},
+    {"title": "[Certification in progress]", "issuer": "[Issuer]", "target": "[Month YYYY]", "status": "in_progress", "progress": 10, "order": 9}
+  ],
+  "collection_items": [
+    {"kind": "art", "title": "The School of Athens, Raphael", "image": "school_of_athens", "note": "In the hall · Art", "order": 1},
+    {"kind": "book", "title": "[Book title]", "subtitle": "[Author]", "note": "On the shelf · Reading", "order": 2},
+    {"kind": "chess", "title": "[Favourite opening]", "note": "On the board · Chess", "order": 3},
+    {"kind": "record", "title": "[Record]", "subtitle": "[Artist]", "note": "On the stand · Saxophone", "order": 4},
+    {"kind": "sport", "title": "[Team or sport]", "image": "boxer_at_rest", "note": "In the stands · Sport", "order": 5},
+    {"kind": "game", "title": "[Game]", "subtitle": "[Platform]", "note": "In play · Gaming", "order": 6}
+  ],
+  "posts": [
+    {
+      "title": "[Featured essay title]",
+      "slug": "featured-essay",
+      "excerpt": "[One- or two-sentence excerpt. Each entry picks its own cover painting in the CMS.]",
+      "body": "[Featured essay body. Written in the CMS.]",
+      "category": "Engineering",
+      "tags": [],
+      "cover_painting": "death_of_socrates",
+      "status": "published",
+      "date_label": "[Date]",
+      "sample": true
+    },
+    {
+      "title": "[Sample: what Stoicism taught me about on-call]",
+      "slug": "stoicism-on-call",
+      "excerpt": "[Shown on the Journal index and in link previews.]",
+      "body": ":::sample\nSample text · shows the reading typography · replaced from the CMS\n:::\n\nEvery system eventually wakes someone at night. The question this layout answers is how a long piece of writing reads here: generous measure, quiet colour, and room for the occasional aside.\n\nHeadings, quotes and code each get their own treatment, so an essay can move between reflection and implementation without changing voice.\n\n:::margin\nSide notes sit in the margin on desktop and drop in after their paragraph on mobile.\n:::\n\n## The dichotomy of control\n\n> \"Some things are within our power, while others are not.\"\n> — Epictetus · Enchiridion 1\n\nCode blocks sit on a dark plate in the monospace face, with the language noted like a museum label.\n\n```yaml\nalert: api_latency_p99\nwithin_control: [runbook, rollback, comms]\noutside_control: [upstream_provider]\n```\n\n## Runbooks as virtue\n\nImages, inline links, lists and footnotes follow the same rules, so anything written in the CMS editor lands here looking finished.\n\n***",
+      "category": "Leadership",
+      "tags": ["stoicism", "on-call", "sre"],
+      "cover_painting": "death_of_socrates",
+      "status": "published",
+      "date_label": "[Date]",
+      "sample": true
+    },
+    {
+      "title": "[Sample: designing a marketplace admin for scale]",
+      "slug": "marketplace-admin-for-scale",
+      "excerpt": "[Excerpt]",
+      "body": "[Sample entry. Written in the CMS.]",
+      "category": "Engineering",
+      "tags": [],
+      "cover_painting": "school_of_athens",
+      "status": "published",
+      "date_label": "[Date]",
+      "sample": true
+    },
+    {
+      "title": "[Sample: Flutter Web in production, honestly]",
+      "slug": "flutter-web-in-production",
+      "excerpt": "[Excerpt]",
+      "body": "[Sample entry. Written in the CMS.]",
+      "category": "Engineering",
+      "tags": [],
+      "cover_painting": "meditations",
+      "status": "published",
+      "date_label": "[Date]",
+      "sample": true
+    },
+    {
+      "title": "[Sample: sketchbook notes on the gallery redesign]",
+      "slug": "gallery-redesign-sketchbook",
+      "excerpt": "[Excerpt]",
+      "body": "[Sample entry. Written in the CMS.]",
+      "category": "Design",
+      "tags": [],
+      "cover_painting": "boxer_at_rest",
+      "status": "published",
+      "date_label": "[Date]",
+      "sample": true
+    }
+  ],
+  "visitor_notes": [
+    {"name": "[Name]", "city": "[City]", "note": "[Visitor note]", "approved": true},
+    {"name": "[Name]", "city": "[City]", "note": "[Visitor note]", "approved": true},
+    {"name": "[Name]", "city": "[City]", "note": "[Visitor note]", "approved": true},
+    {"name": "[Name]", "city": "[City]", "note": "[Visitor note]", "approved": true}
+  ]
+}

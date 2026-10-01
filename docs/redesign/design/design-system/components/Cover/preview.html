@@ -1,0 +1,35 @@
+<!-- @dsCard height=300 -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&family=Montserrat:wght@400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:var(--ground)}
+.cover{position:relative;width:960px;height:300px;background:var(--ground);overflow:hidden}
+.name{position:absolute;left:48px;bottom:40px;width:440px;display:flex;flex-direction:column;gap:14px}
+.name h1{margin:0;font-family:"Montserrat Alternates",system-ui,sans-serif;font-weight:600;font-size:72px;line-height:.95;color:var(--ink)}
+.name p{margin:0;font-family:"Montserrat",system-ui,sans-serif;font-size:14px;color:var(--ink-muted)}
+svg{position:absolute;left:480px;top:0}
+.royal{fill:var(--royal)}
+.tyrian{fill:var(--tyrian)}
+.gilt{fill:var(--gilt)}
+.marble{fill:var(--placard)}
+</style>
+<div class="cover">
+<!--
+blocks: royal 280x300 slab (bleeds top and bottom), tyrian 200x184, gilt 96x40 (space-5 tall), placard tint 104x76
+arrangement: one tall slab with satellites stacked to the right edge
+pattern: literal motif, an arcade of four Roman arches (School of Athens), cut in placard tint over the royal slab; chosen because the system is a Roman gallery
+scales: arch width 40px (space-5), pitch 64px (space-6), crown radius 20px; blocks square (radius-none)
+-->
+<svg width="480" height="300" viewBox="0 0 480 300" aria-hidden="true">
+<rect class="royal" x="0" y="0" width="280" height="300"></rect>
+<rect class="tyrian" x="280" y="0" width="200" height="184"></rect>
+<rect class="gilt" x="280" y="184" width="96" height="40"></rect>
+<rect class="marble" x="376" y="224" width="104" height="76"></rect>
+<g class="marble">
+<rect x="24" y="200" width="40" height="100"></rect><circle cx="44" cy="200" r="20"></circle>
+<rect x="88" y="200" width="40" height="100"></rect><circle cx="108" cy="200" r="20"></circle>
+<rect x="152" y="200" width="40" height="100"></rect><circle cx="172" cy="200" r="20"></circle>
+<rect x="216" y="200" width="40" height="100"></rect><circle cx="236" cy="200" r="20"></circle>
+</g>
+</svg>
+<div class="name"><h1>The Collection</h1><p>A portfolio hung like a Roman gallery: royal blue, Tyrian purple and gilt.</p></div>
+</div>

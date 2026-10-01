@@ -1,0 +1,84 @@
+# The Sola-Eniolawun Collection: Flutter web (nginx) + PocketBase, with
+# optional automatic HTTPS through Caddy.
+#
+#   cp .env.example .env            # then edit it
+#   docker compose up -d --build                    # HTTP on ${WEB_PORT:-8080}
+#   docker compose --profile tls up -d --build      # + Caddy on 80/443 for $DOMAIN
+#
+# See docs/DEPLOY.md.
+
+name: portfolio
+
+services:
+  pocketbase:
+    build:
+      context: ./pocketbase
+      args:
+        PB_VERSION: "0.40.4"
+    image: portfolio-pocketbase:0.40.4
+    restart: unless-stopped
+    environment:
+      PAUL_EMAIL: ${PAUL_EMAIL:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_TLS: ${SMTP_TLS:-}
+      SITE_URL: ${SITE_URL:-}
+    volumes:
+      - pb_data:/pb_data
+      - ./pb_migrations:/pb_migrations:ro
+      - ./pb_hooks:/pb_hooks:ro
+    # Not published: reached through nginx at /api/ and /_/.
+    expose:
+      - "8090"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8090/api/health"]
+      interval: 15s
+      timeout: 5s
+      start_period: 20s
+      retries: 5
+
+  web:
+    build:
+      context: .
+    image: portfolio-web:latest
+    restart: unless-stopped
+    depends_on:
+      pocketbase:
+        condition: service_healthy
+    # With the tls profile, Caddy reaches web over the compose network, so you
+    # can bind this to localhost only: WEB_PORT=127.0.0.1:8080
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+  caddy:
+    image: caddy:2.11.4-alpine
+    profiles: ["tls"]
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    environment:
+      # Must be set in .env when using this profile (Caddy fails to start without it).
+      DOMAIN: ${DOMAIN:-}
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  pb_data:
+  caddy_data:
+  caddy_config:

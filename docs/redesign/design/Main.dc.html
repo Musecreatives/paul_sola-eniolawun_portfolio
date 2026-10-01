@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design system</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="wall-indigo sans" style="width: 1440px; min-height: 1900px; box-sizing: border-box; padding: 72px 80px; color: #F3EEE3; display: flex; flex-direction: column; gap: 64px">
+
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; border-bottom: 1px solid rgba(205,179,238,.3); padding-bottom: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="mono" style="color: #E2C57F">Design system · v0.2 · Imperial</div>
+<h1 class="alt" style="margin: 0; font-weight: 600; font-size: 64px; line-height: 1">The Collection</h1>
+<p style="margin: 0; max-width: 680px; font-size: 17px; line-height: 1.6; color: #A9A3C4">A Roman gallery: royal blue fading into Tyrian purple, gilt frames, marble-white placards. Montserrat Alternates is still the voice; monospace placards keep it technical.</p>
+</div>
+<div class="seal" style="width: 96px; height: 96px; font-size: 26px; box-shadow: 0 0 0 6px #16123A, 0 0 0 7px rgba(201,162,74,.5)">PSE</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">01 · Palette</div>
+<div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #0B0A1C; border: 1px solid #2E2860"></div><div style="font-size: 14px; font-weight: 500">Night</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#0B0A1C</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #16123A; border: 1px solid #2E2860"></div><div style="font-size: 14px; font-weight: 500">Imperial indigo · wall</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#16123A</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #1F3A93"></div><div style="font-size: 14px; font-weight: 500">Roman royal blue</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#1F3A93 · text on light</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #2D4FC4"></div><div style="font-size: 14px; font-weight: 500">Royal action</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#2D4FC4 · buttons</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #A8B9FF"></div><div style="font-size: 14px; font-weight: 500">Royal light</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#A8B9FF · text on dark</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #4B1F5E"></div><div style="font-size: 14px; font-weight: 500">Tyrian purple</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#4B1F5E · text on light</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #3A1650"></div><div style="font-size: 14px; font-weight: 500">Purple salon wall</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#3A1650</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #CDB3EE"></div><div style="font-size: 14px; font-weight: 500">Purple light</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#CDB3EE · text on dark</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #C9A24A"></div><div style="font-size: 14px; font-weight: 500">Gilt · frames only</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#C9A24A / #E2C57F</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="height: 96px; background: #F3EEE3"></div><div style="font-size: 14px; font-weight: 500">Marble vellum</div><div class="mono" style="font-size: 12px; color: #A9A3C4">#F3EEE3 / #FAF7F0</div></div>
+</div>
+<div class="wall-imperial" style="height: 120px; display: flex; align-items: flex-end; justify-content: space-between; padding: 18px 22px; box-sizing: border-box; border: 1px solid #2E2860">
+<span class="mono" style="color: #F3EEE3">The imperial blend · 135° royal → indigo → Tyrian · Foyer, 404 and login only</span>
+<span class="mono" style="color: #E2C57F">+ picture light</span>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">02 · Type · Montserrat Alternates kept</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid rgba(243,238,227,.12); padding-bottom: 18px">
+<div class="alt" style="font-weight: 600; font-size: 96px; line-height: .95">Developer</div>
+<div class="mono" style="font-size: 12px; color: #A9A3C4">Display · Alternates 600 · 96 / 0.95</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid rgba(243,238,227,.12); padding-bottom: 18px">
+<div class="alt" style="font-weight: 500; font-size: 48px; line-height: 1.05; color: #A8B9FF">Selected Works</div>
+<div class="mono" style="font-size: 12px; color: #A9A3C4">Heading · Alternates 500 · 48–68</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; border-bottom: 1px solid rgba(243,238,227,.12); padding-bottom: 18px">
+<div style="font-size: 17px; line-height: 1.65; color: #D6D0EA; max-width: 520px">Body copy is plain Montserrat for long reading. The Alternates letterforms stay in headings, where they carry the personality.</div>
+<div class="mono" style="font-size: 12px; color: #A9A3C4">Body · Montserrat 400 · 17 / 1.65</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<div class="mono" style="font-size: 13px; color: #E2C57F">Inv. PSE–2025–01 · Next.js · Node.js</div>
+<div class="mono" style="font-size: 12px; color: #A9A3C4">Placard · JetBrains Mono 500 · 11–13 · caps</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">03 · Frame, lamp + placard</div>
+<div class="wall-imperial" style="position: relative; padding: 36px 40px 74px; border: 1px solid #2E2860">
+<div class="lamp" style="width: 160px; margin: 0 auto 18px"></div>
+<div class="frame">
+<div class="win" style="height: 250px"><img class="art" src="assets/menu_image3.png" alt="The School of Athens by Raphael"></div>
+</div>
+<div class="placard" style="position: absolute; right: 24px; bottom: 18px; width: 250px">
+<div class="mono" style="font-size: 12px; color: #4B1F5E">Inv. 1511–RA</div>
+<div class="alt" style="font-weight: 600; font-size: 16px">The School of Athens</div>
+<div style="font-size: 13px; color: #575170">Raphael, 1509–1511 · Fresco</div>
+</div>
+</div>
+<div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">Frames stay gilt: Roman gold against imperial blue and purple. Hover lifts a frame 6px and deepens its shadow.</div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px">
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">04 · Actions</div>
+<div style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start">
+<a href="#" class="btn">Enter the gallery <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" class="btn btn-purple">Seal &amp; send</a>
+<a href="#" class="btn2">Read the journal</a>
+<a href="#" class="mono ul" style="font-size: 13px; color: #A8B9FF; padding-bottom: 4px">View case study →</a>
+</div>
+<div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">Royal blue is the main action; purple is for sending and sealing. Underlines draw in on hover.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">05 · Wayfinding</div>
+<div style="display: flex; gap: 32px; align-items: flex-start">
+<div class="roommap"><span>I</span><span class="on">II</span><span>III</span><span>IV</span><span>V</span><span>VI</span><span>VII</span><span>VIII</span></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div class="mono" style="color: #E2C57F">Room II</div>
+<div class="alt" style="font-weight: 500; font-size: 36px; line-height: 1">Selected Works</div>
+<div style="font-style: italic; font-size: 14px; line-height: 1.6; color: #A9A3C4">“Waste no more time arguing what a good man should be. Be one.”</div>
+</div>
+</div>
+<div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">A room map on the right edge shows where you are in the tour; each room opens with a Stoic epigraph.</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="mono" style="color: #E2C57F">06 · Motion</div>
+<div class="mono" style="font-size: 12px; line-height: 2.1; color: #D6D0EA; letter-spacing: 0; text-transform: none">
+<div>picture light flickers on · 1.6s</div>
+<div>frames rise in · 900ms · stagger 80ms</div>
+<div>gilt rules draw in · 1.2s</div>
+<div>paintings drift slowly · 26s loop</div>
+<div>hero painting tilts with cursor · ±4°</div>
+<div>menu crossfades paintings · 900ms</div>
+<div>reduced motion → everything still</div>
+</div>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; border-top: 1px solid rgba(205,179,238,.3); padding-top: 32px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="mono" style="color: #E2C57F">Added · Now placard</div><div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">A small placard in the Foyer showing what you're building and reading right now. Edited in the CMS.</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="mono" style="color: #E2C57F">Added · Day / night gallery</div><div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">A toggle switches the dark walls to marble and vellum. Defaults to the visitor's system setting.</div></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div class="mono" style="color: #E2C57F">Added · Visitor book</div><div style="font-size: 14px; line-height: 1.6; color: #A9A3C4">Visitors can sign the book on the Correspondence page. You approve each note in the CMS before it shows.</div></div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+renderVals() {
+return {};
+}
+}
+</script>
+</body>
+</html>

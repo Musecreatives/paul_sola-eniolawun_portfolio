@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Menu</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="sans" style="min-height: 900px; display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); color: #F3EEE3">
+
+<nav aria-label="Main" style="background: #0B0A1C; padding: 28px 56px 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 32px">
+<button class="icon-btn" aria-label="Close menu" style="width: 48px; height: 48px; background: #16123A">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+<div style="display: flex; flex-direction: column; gap: 2px; padding-left: 8px">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="8">
+<a href="#" class="alt rise" onMouseEnter="{{it.pick}}" onFocus="{{it.pick}}" style="align-self: flex-start; font-weight: 500; font-size: 38px; text-decoration: none; padding: 8px 16px; color: {{it.color}}; background: {{it.bg}}; transition: background .2s, color .2s">{{it.label}} <sup class="mono" style="font-size: 12px; color: #E2C57F">{{it.num}}</sup></a>
+</sc-for>
+</div>
+<div class="mono" style="display: flex; flex-wrap: wrap; gap: 22px; font-size: 12px; color: #A9A3C4; padding-left: 24px">
+<a href="#" class="ul" style="color: #A9A3C4">GitHub</a><a href="#" class="ul" style="color: #A9A3C4">LinkedIn</a><a href="#" class="ul" style="color: #A9A3C4">Figma</a><a href="#" class="ul" style="color: #A9A3C4">X</a><a href="#" class="ul" style="color: #A9A3C4">paulsolaeniolawun@gmail.com</a>
+</div>
+</nav>
+
+<div class="wall-tyrian" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px 56px; gap: 28px">
+<div class="lamp" style="width: 180px"></div>
+<div class="frame" style="width: 100%; max-width: 620px; box-sizing: border-box; padding: 20px">
+<div class="win" style="aspect-ratio: 16 / 10">
+<sc-for list="{{items}}" as="it" hint-placeholder-count="1">
+<img class="art" src="{{it.img}}" alt="{{it.art}}" style="position: absolute; inset: 0; opacity: {{it.op}}; transition: opacity .9s ease">
+</sc-for>
+</div>
+</div>
+<div style="width: 100%; max-width: 620px; display: flex; justify-content: flex-end">
+<div class="placard" style="width: 300px">
+<div class="mono" style="font-size: 12px; color: #4B1F5E">Room {{cur.num}} · {{cur.label}}</div>
+<div class="alt" style="font-weight: 600; font-size: 17px">{{cur.art}}</div>
+<div style="font-size: 13px; color: #575170">{{cur.artist}}</div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+const s = this.state || {};
+const sel = s.sel === undefined ? 2 : s.sel;
+const raw = [
+{ label: 'Foyer', num: 'I', img: 'assets/menu_image_1.png', art: 'Think Outside the Box', artist: 'Studio print' },
+{ label: 'Selected Works', num: 'II', img: 'assets/menu_image2.png', art: 'Boxer at Rest', artist: 'Hellenistic bronze' },
+{ label: 'Chronicle', num: 'III', img: 'assets/menu_image3.png', art: 'The School of Athens', artist: 'Raphael, 1509–1511 · Fresco' },
+{ label: 'Certificates', num: 'IV', img: 'assets/menu_image4.png', art: 'The Death of Socrates', artist: 'Jacques-Louis David, 1787 · Oil on canvas' },
+{ label: 'About', num: 'V', img: 'assets/menu_image5.png', art: 'Marcus Aurelius, fragment', artist: 'Roman marble' },
+{ label: 'Journal', num: 'VI', img: 'assets/menu_image6.png', art: 'Meditations', artist: 'Marcus Aurelius bust · studio print' },
+{ label: 'The Collection', num: 'VII', img: 'assets/menu_image3.png', art: '[New artwork needed]', artist: 'Public-domain piece to source' },
+{ label: 'Correspondence', num: 'VIII', img: 'assets/menu_image5.png', art: '[New artwork needed]', artist: 'Public-domain piece to source' }
+];
+const items = raw.map((it, i) => ({
+...it,
+op: i === sel ? 1 : 0,
+color: i === sel ? '#E2C57F' : '#F3EEE3',
+bg: i === sel ? '#1E1850' : 'transparent',
+pick: () => this.setState({ sel: i })
+}));
+return { items, cur: items[sel] };
+}
+}
+</script>
+</body>
+</html>

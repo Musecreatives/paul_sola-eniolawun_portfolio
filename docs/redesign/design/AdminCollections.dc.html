@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronicle manager</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="adm" style="width: 1440px; height: 1000px; display: grid; grid-template-columns: 260px minmax(0, 1fr) 420px">
+<nav class="adm-side" aria-label="Admin" style="display: flex; flex-direction: column; gap: 28px; padding: 24px 14px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 0 8px"><span class="seal" style="width: 40px; height: 40px; font-size: 12px">PSE</span><span class="alt" style="font-weight: 600; font-size: 16px">Curator's office</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<a href="#" class="adm-nav">Overview</a>
+<a href="#" class="adm-nav">Journal</a>
+<a href="#" class="adm-nav">Works</a>
+<a href="#" class="adm-nav adm-on">Chronicle</a>
+<a href="#" class="adm-nav">Certificates</a>
+<a href="#" class="adm-nav">Collection</a>
+<a href="#" class="adm-nav">Now placard</a>
+<a href="#" class="adm-nav">Visitor book</a>
+<a href="#" class="adm-nav">Letters</a>
+<a href="#" class="adm-nav">Media library</a>
+<a href="#" class="adm-nav">Settings</a>
+</div>
+</nav>
+
+<main style="padding: 32px 32px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: #4B1F5E">Room III</span><span class="alt" style="font-size: 30px; font-weight: 600">Chronicle</span></div>
+<a href="#" class="btn" style="min-height: 46px; font-size: 15px">+ Add role</a>
+</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<label for="ch-search" style="position: absolute; left: -9999px">Filter roles</label>
+<input id="ch-search" class="input" type="search" placeholder="Filter roles…" style="max-width: 280px">
+<span style="font-size: 13px; color: #575170">Drag rows to reorder · order on the site follows this list</span>
+</div>
+<div class="adm-card" style="padding: 0">
+<div class="mono" style="display: grid; grid-template-columns: 28px minmax(0, 2fr) minmax(0, 2fr) 150px 70px; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E4E0F0; font-size: 12px; color: #575170"><span></span><span>Role</span><span>Organisation</span><span>Dates</span><span>Visible</span></div>
+<sc-for list="{{roles}}" as="r" hint-placeholder-count="8">
+<div style="display: grid; grid-template-columns: 28px minmax(0, 2fr) minmax(0, 2fr) 150px 70px; gap: 12px; align-items: center; padding: 12px 16px; border-bottom: 1px solid #F0EDF7; background: {{r.bg}}">
+<span aria-hidden="true" style="color: #B9B3D0; cursor: grab; letter-spacing: -2px">⋮⋮</span>
+<span style="font-size: 14px; font-weight: 600">{{r.role}}</span>
+<span style="font-size: 14px; color: #403A5C">{{r.org}}</span>
+<span class="mono" style="font-size: 12px; color: #575170">{{r.dates}}</span>
+<input type="checkbox" checked aria-label="Visible on site" style="width: 18px; height: 18px; accent-color: #2D4FC4">
+</div>
+</sc-for>
+</div>
+</main>
+
+<aside aria-label="Edit role" style="background: #fff; border-left: 1px solid #E4E0F0; padding: 28px; display: flex; flex-direction: column; gap: 16px; box-shadow: -20px 0 40px rgba(28,24,48,.08)">
+<div style="display: flex; justify-content: space-between; align-items: center"><span class="alt" style="font-size: 20px; font-weight: 600">Edit role</span><button aria-label="Close editor" style="width: 36px; height: 36px; border: none; background: none; font-size: 18px; cursor: pointer">×</button></div>
+<div class="field"><label class="label" for="r-role">Role</label><input id="r-role" class="input" type="text" value="VP of Engineering"></div>
+<div class="field"><label class="label" for="r-org">Organisation</label><input id="r-org" class="input" type="text" value="Synkkafrica Ltd"></div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div class="field"><label class="label" for="r-start">Start</label><input id="r-start" class="input" type="month" value="2025-06"></div>
+<div class="field"><label class="label" for="r-end">End</label><input id="r-end" class="input" type="month" disabled></div>
+</div>
+<label style="display: flex; gap: 10px; align-items: center; font-size: 14px"><input type="checkbox" checked style="width: 18px; height: 18px; accent-color: #2D4FC4"> I currently work here</label>
+<div class="field"><span class="label">Highlights</span>
+<input class="input" type="text" aria-label="Highlight 1" value="Owns architecture across backend, frontend, infra">
+<input class="input" type="text" aria-label="Highlight 2" value="Leads teams on Next.js, Node.js and Flutter">
+<span style="font-size: 13px; color: #1F3A93">+ Add highlight</span>
+</div>
+<div class="field"><label class="label" for="r-work">Linked work</label><select id="r-work" class="input"><option>Plate I · Synkkafrica</option><option>None</option></select></div>
+<div style="display: flex; gap: 10px; margin-top: auto">
+<a href="#" class="btn" style="flex-grow: 1; min-height: 46px; font-size: 15px">Save</a>
+<a href="#" class="btn2" style="min-height: 46px; font-size: 15px; color: #8A1C2C; border-color: #E2B8BF">Delete</a>
+</div>
+</aside>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+const rows = [
+['VP of Engineering', 'Synkkafrica Ltd', 'Jun 2025 – now'],
+['Co-Founder · COO', 'Innovated Digital', 'Apr 2025 – now'],
+['Frontend Developer', 'RapidRobo Ltd', 'Feb – Apr 2025'],
+['Full Stack Developer', 'ProxyLogic', 'Apr – Nov 2024'],
+['Software Engineer', 'NCRS', '2024'],
+['Software Engineer', 'RobyHub', 'Nov 2022 – Apr 2023'],
+['Front-End Developer', 'GIZ / SEDIN-GIZ', 'Jun – Nov 2022'],
+['Front Developer', 'iConcept Solutions', 'Jan – Mar 2021'],
+['Frontend Developer', 'Shaddai Communications', '2020 – 2021']
+];
+return { roles: rows.map((r, i) => ({ role: r[0], org: r[1], dates: r[2], bg: i === 0 ? '#EEF1FF' : '#fff' })) };
+}
+}
+</script>
+</body>
+</html>

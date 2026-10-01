@@ -47,3 +47,9 @@ app.*.map.json
 
 # node_modules
 node_modules
+
+# Local scratch and secrets
+.scratch/
+.env
+pb_data/
+.claude/worktrees/
