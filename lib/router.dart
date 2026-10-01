@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'admin_gate.dart';
 import 'rooms/about.dart';
 import 'rooms/case_study.dart';
 import 'rooms/certificates.dart';
@@ -41,5 +42,9 @@ final router = GoRouter(
     _route('/journal/:slug', (s) => JournalPostPage(slug: s.pathParameters['slug']!)),
     _route('/collection', (_) => const CollectionPage()),
     _route('/correspondence', (_) => const CorrespondencePage()),
+    // The Curator's office, deferred-loaded.
+    _route('/admin', AdminGate.new),
+    _route('/admin/:section', AdminGate.new),
+    _route('/admin/:section/:id', AdminGate.new),
   ],
 );

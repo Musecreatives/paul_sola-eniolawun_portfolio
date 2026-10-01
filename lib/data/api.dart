@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:pocketbase/pocketbase.dart';
 
 import 'platform/origin_stub.dart' if (dart.library.js_interop) 'platform/origin_web.dart';
@@ -15,6 +16,11 @@ String? apiBaseUrl() {
 /// The one PocketBase client, shared by the public rooms and the admin.
 /// The curator's session is kept in localStorage on the web.
 PocketBase? _client;
+
+/// Lets tests hand in a client backed by a mock HTTP server.
+@visibleForTesting
+set pocketBaseForTesting(PocketBase? pb) => _client = pb;
+
 PocketBase? pocketBase() {
   if (_client != null) return _client;
   final base = apiBaseUrl();
