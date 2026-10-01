@@ -6,6 +6,8 @@ import 'rooms/case_study.dart';
 import 'rooms/certificates.dart';
 import 'rooms/chronicle.dart';
 import 'rooms/foyer.dart';
+import 'rooms/journal.dart';
+import 'rooms/journal_post.dart';
 import 'rooms/not_found.dart';
 import 'rooms/works.dart';
 import 'shell/page.dart';
@@ -33,5 +35,7 @@ final router = GoRouter(
     _route('/chronicle', (_) => const ChroniclePage()),
     _route('/certificates', (_) => const CertificatesPage()),
     _route('/about', (_) => const AboutPage()),
+    _route('/journal', (_) => const JournalPage()),
+    _route('/journal/:slug', (s) => JournalPostPage(slug: s.pathParameters['slug']!)),
   ],
 );

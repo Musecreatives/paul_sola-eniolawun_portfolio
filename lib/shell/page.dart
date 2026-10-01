@@ -33,7 +33,11 @@ class GalleryPage extends StatelessWidget {
     this.footer = true,
     this.scrollController,
     this.footerRoom,
+    this.overlay,
   });
+
+  /// Pinned to the top of the viewport (the journal's reading progress).
+  final Widget? overlay;
 
   /// The room whose "next room" the footer points to (defaults to [room]).
   final Room? footerRoom;
@@ -76,6 +80,7 @@ class GalleryPage extends StatelessWidget {
                   ),
                 ),
               ),
+              if (overlay != null) Positioned(top: 0, left: 0, right: 0, child: overlay!),
               if (room != null && context.isWide)
                 Positioned(right: 32, top: 0, bottom: 0, child: Center(child: RoomMap(current: room!))),
             ],
