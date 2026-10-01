@@ -56,12 +56,12 @@ class _JournalPageState extends State<JournalPage> {
           child: Container(
             constraints: const BoxConstraints(minHeight: 44),
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            alignment: Alignment.center,
             decoration: BoxDecoration(
               color: on ? Palette.royal : (hover ? const Color(0x0F1C1830) : null),
               border: Border.all(color: on ? Palette.royal : const Color(0x4D1C1830)),
             ),
-            child: Mono(label, color: on ? Colors.white : g.ink),
+            // widthFactor keeps the chip as wide as its label inside the Wrap.
+            child: Center(widthFactor: 1, child: Mono(label, color: on ? Colors.white : g.ink)),
           ),
         ),
       );
@@ -224,30 +224,27 @@ class _SubscribeState extends State<_Subscribe> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 spacing: 10,
                 children: [
-                  Wrap(
-                    spacing: 12,
-                    runSpacing: 12,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    children: [
-                      ConstrainedBox(
-                        constraints: const BoxConstraints(minWidth: 220, maxWidth: 360),
-                        child: GalleryField(
-                          label: 'Email address',
-                          hideLabel: true,
-                          controller: _email,
-                          hint: 'you@example.com',
-                          keyboard: TextInputType.emailAddress,
-                          autofill: const [AutofillHints.email],
-                          validator: validateEmail,
-                          onSubmit: _submit,
-                        ),
-                      ),
-                      ValueListenableBuilder(
-                        valueListenable: _status,
-                        builder: (_, s, _) => GalleryButton(label: 'Subscribe', busy: s.busy, onPressed: _submit, height: 48),
-                      ),
-                    ],
-                  ),
+                  LayoutBuilder(builder: (context, c) {
+                    final field = GalleryField(
+                      label: 'Email address',
+                      hideLabel: true,
+                      controller: _email,
+                      hint: 'you@example.com',
+                      keyboard: TextInputType.emailAddress,
+                      autofill: const [AutofillHints.email],
+                      validator: validateEmail,
+                      onSubmit: _submit,
+                    );
+                    final button = ValueListenableBuilder(
+                      valueListenable: _status,
+                      builder: (_, s, _) => GalleryButton(label: 'Subscribe', busy: s.busy, onPressed: _submit, height: 48),
+                    );
+                    // The input grows to fill the row, as flex: 1 1 220px does.
+                    if (c.maxWidth < 360) {
+                      return Column(crossAxisAlignment: CrossAxisAlignment.stretch, spacing: 12, children: [field, button]);
+                    }
+                    return Row(crossAxisAlignment: CrossAxisAlignment.start, spacing: 12, children: [Expanded(child: field), button]);
+                  }),
                   StatusLine(_status, onDark: true),
                 ],
               ),
