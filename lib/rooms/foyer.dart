@@ -143,8 +143,12 @@ class _Foyer extends StatelessWidget {
 
     return ConstrainedBox(
       constraints: BoxConstraints(minHeight: (screen.height - 104).clamp(560.0, 796.0)),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+      // The hero sits centred in the first viewport, the Now strip at its foot.
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          const SizedBox.shrink(),
           Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 1320),
