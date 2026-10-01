@@ -23,6 +23,7 @@ class FoyerPage extends StatelessWidget {
         title: 'Developer + Computer Scientist',
         room: Room.foyer,
         footer: below.isNotEmpty,
+        footerRoom: Room.works,
         sections: [
           Section(decoration: Walls.imperial, light: true, child: const _Foyer()),
           ...below,

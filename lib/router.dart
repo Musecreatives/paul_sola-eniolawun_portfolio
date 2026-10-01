@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'rooms/case_study.dart';
 import 'rooms/foyer.dart';
 import 'rooms/not_found.dart';
+import 'rooms/works.dart';
+import 'shell/page.dart';
 import 'theme/tokens.dart';
 import 'widgets/gallery.dart';
 
@@ -21,6 +24,8 @@ GoRoute _route(String path, Widget Function(GoRouterState s) build) =>
 final router = GoRouter(
   errorPageBuilder: (_, s) => _page(s, const NotFoundRoom()),
   routes: [
-    _route('/', (_) => const FoyerPage()),
+    _route('/', (_) => const FoyerPage(below: [Section(child: WorksRoom())])),
+    _route('/works', (_) => const WorksPage()),
+    _route('/works/:slug', (s) => CaseStudyPage(slug: s.pathParameters['slug']!)),
   ],
 );

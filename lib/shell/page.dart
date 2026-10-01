@@ -32,7 +32,11 @@ class GalleryPage extends StatelessWidget {
     this.day = false,
     this.footer = true,
     this.scrollController,
+    this.footerRoom,
   });
+
+  /// The room whose "next room" the footer points to (defaults to [room]).
+  final Room? footerRoom;
 
   /// Browser tab title.
   final String title;
@@ -67,7 +71,7 @@ class GalleryPage extends StatelessWidget {
                           i == 0 ? Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [NavBar(room: room), sections[i].child]) : sections[i].child,
                           g,
                         ),
-                      if (footer) TourFooter(room: room),
+                      if (footer) TourFooter(room: footerRoom ?? room),
                     ],
                   ),
                 ),
