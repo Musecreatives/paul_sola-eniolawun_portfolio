@@ -95,10 +95,21 @@ class GalleryField extends StatelessWidget {
 }
 
 class GallerySelect extends StatelessWidget {
-  const GallerySelect({super.key, required this.label, required this.value, required this.options, required this.onChanged, this.labelColor = Palette.tyrian});
+  const GallerySelect({
+    super.key,
+    required this.label,
+    required this.value,
+    required this.options,
+    required this.onChanged,
+    this.labelColor = Palette.tyrian,
+    this.display,
+  });
   final String label;
   final String value;
   final List<String> options;
+
+  /// How an option reads in the menu, when it differs from the stored value.
+  final String Function(String)? display;
   final ValueChanged<String> onChanged;
   final Color labelColor;
 
@@ -117,7 +128,7 @@ class GallerySelect extends StatelessWidget {
               style: T.body(15, height: 1.4, color: Palette.placardInk),
               iconEnabledColor: Palette.placardInk,
               decoration: galleryInput(),
-              items: [for (final o in options) DropdownMenuItem(value: o, child: Text(o))],
+              items: [for (final o in options) DropdownMenuItem(value: o, child: Text(display?.call(o) ?? o))],
               onChanged: (v) => v == null ? null : onChanged(v),
             ),
           ),

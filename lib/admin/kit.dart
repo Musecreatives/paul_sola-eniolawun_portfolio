@@ -51,6 +51,28 @@ abstract final class Adm {
   static const selected = Color(0xFFEEF1FF);
 }
 
+/// "in_progress" reads as "In progress".
+String humanize(String v) => v.isEmpty ? v : v[0].toUpperCase() + v.substring(1).replaceAll('_', ' ');
+
+/// The drag handle: two columns of three dots, drawn so no font is needed.
+class Grip extends StatelessWidget {
+  const Grip({super.key});
+  @override
+  Widget build(BuildContext context) => SizedBox(
+        width: 12,
+        height: 18,
+        child: GridView.count(
+          crossAxisCount: 2,
+          physics: const NeverScrollableScrollPhysics(),
+          mainAxisSpacing: 3,
+          crossAxisSpacing: 4,
+          children: [
+            for (var i = 0; i < 6; i++) const DecoratedBox(decoration: BoxDecoration(color: Adm.handle, shape: BoxShape.circle)),
+          ],
+        ),
+      );
+}
+
 /// Status chip colours from the admin mockups.
 (Color, Color) chipColors(String status) => switch (status.toLowerCase()) {
       'draft' => (const Color(0xFFEEE9F8), Palette.tyrian),
@@ -69,7 +91,7 @@ class Chip2 extends StatelessWidget {
 
   factory Chip2.status(String status) {
     final (bg, fg) = chipColors(status);
-    return Chip2(status.isEmpty ? '' : status[0].toUpperCase() + status.substring(1).replaceAll('_', ' '), bg: bg, fg: fg);
+    return Chip2(humanize(status), bg: bg, fg: fg);
   }
 
   @override

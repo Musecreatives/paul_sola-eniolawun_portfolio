@@ -323,7 +323,7 @@ class _DataRow extends StatelessWidget {
                         index: index,
                         child: const MouseRegion(
                           cursor: SystemMouseCursors.grab,
-                          child: ExcludeSemantics(child: Text('⋮⋮', style: TextStyle(color: Adm.handle, letterSpacing: -2, fontSize: 16))),
+                          child: ExcludeSemantics(child: Padding(padding: EdgeInsets.all(8), child: Grip())),
                         ),
                       )
                     : const SizedBox(),
@@ -587,7 +587,13 @@ class _RecordEditorState extends State<RecordEditor> {
           ),
         );
       case FieldKind.select:
-        return GallerySelect(label: f.label, value: _values[f.key] as String, options: f.options, onChanged: (v) => setState(() => _values[f.key] = v));
+        return GallerySelect(
+          label: f.label,
+          value: _values[f.key] as String,
+          options: f.options,
+          display: humanize,
+          onChanged: (v) => setState(() => _values[f.key] = v),
+        );
       case FieldKind.relation:
         final options = {'': 'None', for (final w in _relations) w.id: [w.getStringValue('numeral'), w.getStringValue('title')].where((e) => e.isNotEmpty).join(' · ')};
         final value = options.containsKey(_values[f.key]) ? _values[f.key] as String : '';

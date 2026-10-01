@@ -331,9 +331,8 @@ class _JournalEditorState extends State<JournalEditor> {
             width: width,
             height: 36,
             padding: width == null ? const EdgeInsets.symmetric(horizontal: 8) : null,
-            alignment: Alignment.center,
             color: hover ? Palette.admBg : Colors.white,
-            child: child,
+            child: Center(widthFactor: 1, child: child),
           ),
         ),
       );
@@ -352,6 +351,7 @@ class _JournalEditorState extends State<JournalEditor> {
                 textField: true,
                 child: TextField(
                   controller: _title,
+                  maxLines: null,
                   style: T.display(30, height: 1.2, color: Adm.ink),
                   cursorColor: Palette.royalAction,
                   decoration: InputDecoration.collapsed(hintText: 'Title', hintStyle: T.display(30, height: 1.2, color: Adm.handle)),
@@ -478,6 +478,7 @@ class _JournalEditorState extends State<JournalEditor> {
                 label: 'Status',
                 value: _state,
                 options: _statuses,
+                display: humanize,
                 onChanged: (v) => setState(() {
                   _state = v;
                   _dirty = true;
