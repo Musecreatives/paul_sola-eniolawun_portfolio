@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flutter:
+    name: Analyze and test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          # Keep in step with FLUTTER_VERSION in the Dockerfile.
+          flutter-version: 3.47.5
+          cache: true
+
+      - run: flutter pub get --enforce-lockfile
+      - run: flutter analyze
+      - run: flutter test
+
+  docker:
+    name: Docker build (no push)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Validate compose file
+        run: docker compose config -q
+
+      - name: Build web image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: portfolio-web:ci
+          cache-from: type=gha,scope=web
+          cache-to: type=gha,mode=max,scope=web
+
+      - name: Build PocketBase image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./pocketbase
+          push: false
+          build-args: PB_VERSION=0.40.4
+          tags: portfolio-pocketbase:ci
+          cache-from: type=gha,scope=pocketbase
+          cache-to: type=gha,mode=max,scope=pocketbase

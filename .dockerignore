@@ -1,0 +1,47 @@
+# Only lib/, assets/, web/, pubspec.* and analysis_options.yaml are needed
+# for the web build (plus deploy/nginx for the serving stage).
+.git
+.github
+.gitignore
+.dockerignore
+.idea
+.vscode
+.metadata
+.impeccable
+.scratch
+.claude
+.env
+.env.*
+*.iml
+*.log
+
+# Build outputs and caches
+build
+.dart_tool
+.pub-cache
+.pub
+.flutter-plugins
+.flutter-plugins-dependencies
+node_modules
+
+# Not part of the web build
+legacy
+docs
+tool
+test
+seed
+pb_data
+pb_migrations
+pb_hooks
+pocketbase
+android
+ios
+linux
+macos
+windows
+package.json
+package-lock.json
+README.md
+Dockerfile
+docker-compose.yml
+deploy/Caddyfile
