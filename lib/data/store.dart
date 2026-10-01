@@ -16,7 +16,7 @@ class ContentStore extends ChangeNotifier {
   static Future<Bundle> loadBundled() async =>
       Bundle.fromJson(jsonDecode(await rootBundle.loadString('assets/content/content.json')) as Map<String, dynamic>);
 
-  Future<void> sendLetter({required String name, required String email, required String purpose, required String message}) =>
+  Future<void> sendLetter({required String name, required String email, required String purpose, required String message, String website = ''}) =>
       throw const ContentOffline();
 
   Future<void> signBook({required String name, required String city, required String note}) => throw const ContentOffline();

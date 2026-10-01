@@ -244,7 +244,7 @@ class TourFooter extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       spacing: 14,
                       children: [
-                        Text(next.title, style: T.display(context.isCompact ? 26 : 32, color: g.ink)),
+                        Flexible(child: Text(next.title, style: T.display(context.isCompact ? 26 : 32, color: g.ink))),
                         AnimatedSlide(
                           duration: const Duration(milliseconds: 180),
                           offset: Offset(hover ? .2 : 0, 0),

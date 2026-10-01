@@ -7,7 +7,7 @@ final _emailRe = RegExp(r'^[^\s@]+@[^\s@]+\.[^\s@]+$');
 String? validateEmail(String? v) =>
     (v == null || !_emailRe.hasMatch(v.trim())) ? 'Enter a valid email address.' : null;
 
-String? Function(String?) required(String what) => (v) => (v == null || v.trim().isEmpty) ? 'Please add $what.' : null;
+String? Function(String?) needs(String what) => (v) => (v == null || v.trim().isEmpty) ? 'Please add $what.' : null;
 
 /// Placard-style input decoration: square, cream, 2px royal focus ring.
 InputDecoration galleryInput({String? hint, Color fill = Palette.input}) {

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:muse_creatives_portfolio/app.dart';
@@ -43,4 +42,15 @@ void main() {
     await boot(tester, '/', size: const Size(375, 812));
     expect(tester.takeException(), isNull);
   });
+
+  const routes = ['/', '/works', '/works/synkkafrica', '/works/brainplay', '/chronicle', '/certificates', '/about',
+    '/journal', '/journal/stoicism-on-call', '/collection', '/correspondence'];
+  for (final size in const [Size(375, 812), Size(768, 1024), Size(1280, 800), Size(1440, 900)]) {
+    for (final r in routes) {
+      testWidgets('$r renders at ${size.width.toInt()}px without layout errors', (tester) async {
+        await boot(tester, r, size: size);
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
 }
