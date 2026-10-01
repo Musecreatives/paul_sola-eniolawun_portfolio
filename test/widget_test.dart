@@ -1,10 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:muse_creatives_portfolio/main.dart';
-import 'package:muse_creatives_portfolio/widgets/gallery.dart';
+import 'package:muse_creatives_portfolio/app.dart';
+import 'package:muse_creatives_portfolio/data/store.dart';
+import 'package:muse_creatives_portfolio/router.dart';
+import 'package:muse_creatives_portfolio/shell/menu.dart';
+
+Future<void> boot(WidgetTester tester, String path, {Size size = const Size(1440, 900)}) async {
+  tester.view.physicalSize = size;
+  tester.view.devicePixelRatio = 1;
+  addTearDown(tester.view.reset);
+  final bundle = await tester.runAsync(ContentStore.loadBundled);
+  await tester.pumpWidget(Content(store: ContentStore(bundle!), child: const CollectionApp()));
+  router.go(path);
+  await tester.pumpAndSettle();
+}
 
 void main() {
-  testWidgets('app boots with the seal', (tester) async {
-    await tester.pumpWidget(const CollectionApp());
-    expect(find.byType(Seal), findsOneWidget);
+  testWidgets('foyer renders the hero line', (tester) async {
+    await boot(tester, '/');
+    expect(find.text('Developer'), findsOneWidget);
+    expect(find.text('Computer Scientist'), findsOneWidget);
+  });
+
+  testWidgets('unknown paths land in Room 404', (tester) async {
+    await boot(tester, '/no-such-room');
+    expect(find.text('Closed for restoration.'), findsOneWidget);
+  });
+
+  testWidgets('menu opens from the labelled button and closes with Esc', (tester) async {
+    await boot(tester, '/');
+    await tester.tap(find.bySemanticsLabel('Open menu'));
+    await tester.pumpAndSettle();
+    expect(find.byType(MenuOverlay), findsOneWidget);
+    expect(find.textContaining('Correspondence', findRichText: true), findsWidgets);
+    await tester.sendKeyEvent(LogicalKeyboardKey.escape);
+    await tester.pumpAndSettle();
+    expect(find.byType(MenuOverlay), findsNothing);
+  });
+
+  testWidgets('mobile foyer has no overflow', (tester) async {
+    await boot(tester, '/', size: const Size(375, 812));
+    expect(tester.takeException(), isNull);
   });
 }

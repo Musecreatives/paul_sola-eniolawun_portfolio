@@ -34,6 +34,14 @@ class DrawIn extends StatelessWidget {
   Widget build(BuildContext context) => child;
 }
 
+class Tilt extends StatelessWidget {
+  const Tilt({super.key, required this.child});
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) => child;
+}
+
 class FadeIn extends StatelessWidget {
   const FadeIn({super.key, required this.child, this.step = 0});
   final Widget child;

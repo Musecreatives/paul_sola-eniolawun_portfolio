@@ -413,30 +413,33 @@ class TextLink extends StatelessWidget {
       onTap: onTap,
       external: external,
       label: label,
-      builder: (context, hover, focus) => IntrinsicWidth(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 3),
-              child: Text(mono ? text.toUpperCase() : text, style: style),
-            ),
-            TweenAnimationBuilder<double>(
-              tween: Tween(end: hover ? 1 : 0),
-              duration: d,
-              curve: kEase,
-              builder: (_, v, _) => FractionallySizedBox(
-                alignment: Alignment.centerLeft,
-                widthFactor: v,
-                child: Container(height: 1, color: c),
-              ),
-            ),
-          ],
+      builder: (context, hover, focus) => TweenAnimationBuilder<double>(
+        tween: Tween(end: hover ? 1 : 0),
+        duration: d,
+        curve: kEase,
+        builder: (_, v, child) => CustomPaint(foregroundPainter: _Underline(v, c), child: child),
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 4),
+          child: Text(mono ? text.toUpperCase() : text, style: style),
         ),
       ),
     );
   }
+}
+
+class _Underline extends CustomPainter {
+  _Underline(this.t, this.color);
+  final double t;
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (t <= 0) return;
+    canvas.drawRect(Rect.fromLTWH(0, size.height - 1, size.width * t, 1), Paint()..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_Underline old) => old.t != t || old.color != color;
 }
 
 /// A 120x2 gilt rule that draws in from the left.
@@ -567,8 +570,8 @@ class AutoGrid extends StatelessWidget {
 }
 
 /// Two side-by-side columns that stack under [breakpoint].
-class Split extends StatelessWidget {
-  const Split({
+class TwoUp extends StatelessWidget {
+  const TwoUp({
     super.key,
     required this.left,
     required this.right,

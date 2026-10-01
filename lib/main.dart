@@ -1,20 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 
-import 'theme/tokens.dart';
-import 'widgets/gallery.dart';
+import 'app.dart';
+import 'data/store.dart';
 
-void main() => runApp(const CollectionApp());
-
-class CollectionApp extends StatelessWidget {
-  const CollectionApp({super.key});
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        title: 'Paul Sola-Eniolawun · The Collection',
-        debugShowCheckedModeBanner: false,
-        theme: buildTheme(GalleryColors.day),
-        darkTheme: buildTheme(GalleryColors.night),
-        themeMode: ThemeMode.dark,
-        home: const Scaffold(body: Center(child: Seal())),
-      );
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  usePathUrlStrategy();
+  final store = ContentStore(await ContentStore.loadBundled());
+  runApp(Content(store: store, child: const CollectionApp()));
 }
