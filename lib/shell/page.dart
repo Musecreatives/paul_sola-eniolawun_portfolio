@@ -232,7 +232,8 @@ class TourFooter extends StatelessWidget {
     final next = room?.next ?? Room.foyer;
     return Container(
       color: g.ground,
-      padding: EdgeInsets.symmetric(horizontal: context.gutter, vertical: Space.s5),
+      // On wide screens keep clear of the fixed room map, like the rooms do.
+      padding: EdgeInsets.fromLTRB(context.gutter, Space.s5, context.gutter + (context.isWide ? 56 : 0), Space.s5),
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1240),
