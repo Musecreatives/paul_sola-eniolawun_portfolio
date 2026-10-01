@@ -8,6 +8,7 @@ Pinned to **PocketBase v0.40.4** (JS migrations and hooks, v0.23+ API).
 
 - `1790812800_init_schema.js`: all collections and their API rules.
 - `1790812801_rate_limits.js`: turns on the built-in rate limiter. Guests get 5 creates per 60s per IP on `letters`, `visitor_notes` and `subscribers`; PocketBase's default rules apply elsewhere.
+- `1790812802_trusted_proxy.js`: trusts nginx's `X-Real-IP` header so rate limits and logs see real visitor IPs. Only safe while port 8090 stays private.
 
 ## Rules in short
 

@@ -63,9 +63,9 @@ Always pass `--dir=/pb_data`. Without it the command writes to a different, empt
 
 Public sign-up is off. As superuser, open `/_/` → Collections → `curators` → New record, and set email, password and verified. `seed/README.md` also shows how to do it with the API.
 
-### Trusted proxy (do this once)
+### Trusted proxy
 
-PocketBase sees nginx as the client unless told to read the forwarded IP, and its rate limiter (5 letters / visitor notes / subscriptions per minute per IP) would then treat every visitor as one. In `/_/` → Settings → Application, set the trusted proxy header to `X-Real-IP`. nginx sets it to the real client address, taking Caddy's `X-Forwarded-For` into account when Caddy is in front.
+PocketBase sees nginx as the client unless it reads the forwarded IP, and its rate limiter (5 letters / visitor notes / subscriptions per minute per IP) would then treat every visitor as one. The migration `pb_migrations/1790812802_trusted_proxy.js` sets the trusted proxy header to `X-Real-IP`, which nginx fills with the real client address (taking Caddy's `X-Forwarded-For` into account when Caddy is in front). You can check it in `/_/` → Settings → Application. Keep port 8090 unpublished: with this setting on, a client that could reach PocketBase directly could fake its IP.
 
 ## Seed the content
 
