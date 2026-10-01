@@ -7,7 +7,7 @@ import 'package:muse_creatives_portfolio/presentation/widgets/navbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ExperiencePage extends StatelessWidget {
-  const ExperiencePage({Key? key}) : super(key: key);
+  const ExperiencePage({super.key});
 
   // ─── Skills data ───────────────────────────────────────────────
   static const _coreSkills = [
@@ -359,7 +359,7 @@ class _SkillItem {
 // Dashed vertical line
 
 class _DashedVerticalLine extends StatelessWidget {
-  const _DashedVerticalLine({Key? key}) : super(key: key);
+  const _DashedVerticalLine();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -390,7 +390,7 @@ class _DashedVerticalLine extends StatelessWidget {
 // ───────────────────────────────────────────────────────────────
 // Dashed horizontal line
 class _DashedHorizontalLine extends StatelessWidget {
-  const _DashedHorizontalLine({Key? key}) : super(key: key);
+  const _DashedHorizontalLine();
   @override
   Widget build(BuildContext context) {
     return SizedBox(

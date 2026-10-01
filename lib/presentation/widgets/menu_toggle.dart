@@ -3,7 +3,7 @@ import 'package:muse_creatives_portfolio/presentation/routes/route_transitions.d
 import 'package:muse_creatives_portfolio/presentation/views/menu/menu_page.dart';
 
 class MenuToggleButton extends StatefulWidget {
-  const MenuToggleButton({Key? key}) : super(key: key);
+  const MenuToggleButton({super.key});
 
   @override
   _MenuToggleButtonState createState() => _MenuToggleButtonState();

@@ -7,7 +7,7 @@ import 'package:dotted_border/dotted_border.dart';
 import '../../../data/models/certificate.dart';
 
 class CertificatesPage extends StatelessWidget {
-  const CertificatesPage({Key? key}) : super(key: key);
+  const CertificatesPage({super.key});
 
   // Replace these with your real data
   List<Certificate> get _certs => [

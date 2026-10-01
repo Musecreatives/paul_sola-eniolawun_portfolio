@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:atlas_icons/atlas_icons.dart';
 
 class FooterSection extends StatefulWidget {
-  const FooterSection({Key? key}) : super(key: key);
+  const FooterSection({super.key});
 
   @override
   _FooterSectionState createState() => _FooterSectionState();

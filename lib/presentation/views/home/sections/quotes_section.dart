@@ -12,11 +12,11 @@ class QuoteSection extends StatefulWidget {
   final Duration switchDuration;
 
   const QuoteSection({
-    Key? key,
+    super.key,
     required this.quotes,
     this.backgroundColor = const Color(0xFF3993E8),
     this.switchDuration = const Duration(seconds: 8),
-  }) : super(key: key);
+  });
 
   @override
   _QuoteSectionState createState() => _QuoteSectionState();

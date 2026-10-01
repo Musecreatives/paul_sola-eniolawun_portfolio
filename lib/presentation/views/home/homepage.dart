@@ -20,7 +20,6 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             HeroSection(),
-            SizedBox(height: 60),
             FeaturedSection(),
             QuoteSection(
               quotes: [

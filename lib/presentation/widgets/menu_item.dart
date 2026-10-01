@@ -16,12 +16,12 @@ class MenuItem extends StatelessWidget {
   final ValueChanged<int> onTap;
 
   const MenuItem({
-    Key? key,
+    super.key,
     required this.labels,
     required this.hoveredIndex,
     required this.onHover,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
