@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'rooms/about.dart';
 import 'rooms/case_study.dart';
+import 'rooms/certificates.dart';
 import 'rooms/chronicle.dart';
 import 'rooms/foyer.dart';
 import 'rooms/not_found.dart';
@@ -29,5 +31,7 @@ final router = GoRouter(
     _route('/works', (_) => const WorksPage()),
     _route('/works/:slug', (s) => CaseStudyPage(slug: s.pathParameters['slug']!)),
     _route('/chronicle', (_) => const ChroniclePage()),
+    _route('/certificates', (_) => const CertificatesPage()),
+    _route('/about', (_) => const AboutPage()),
   ],
 );
