@@ -23,7 +23,10 @@ class CollectionPage extends StatelessWidget {
   Widget build(BuildContext context) => const GalleryPage(
         title: 'The Collection',
         room: Room.collection,
-        sections: [Section(decoration: Walls.salon, child: PictureLight(center: Alignment(0, -1), radius: .7, opacity: .08, child: _Collection()))],
+        sections: [
+          // The light falls from the top of the wall, behind the nav bar too.
+          Section(decoration: Walls.salon, light: true, lightCenter: Alignment(0, -1), lightRadius: .7, lightOpacity: .08, child: _Collection()),
+        ],
       );
 }
 
@@ -207,6 +210,7 @@ class _Piece extends StatelessWidget {
 class _Checker extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.clipRect(Offset.zero & size);
     canvas.drawRect(Offset.zero & size, Paint()..color = Palette.plateDark);
     final p = Paint()..color = const Color(0xFF221B52);
     const s = 20.0;

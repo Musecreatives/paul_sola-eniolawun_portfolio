@@ -12,7 +12,14 @@ import 'rooms.dart';
 
 /// One wall-coloured band of a page.
 class Section {
-  const Section({required this.child, this.decoration, this.light = false});
+  const Section({
+    required this.child,
+    this.decoration,
+    this.light = false,
+    this.lightCenter = const Alignment(.44, -.32),
+    this.lightRadius = .55,
+    this.lightOpacity = .10,
+  });
   final Widget child;
 
   /// Null uses the theme's `wall`.
@@ -20,6 +27,9 @@ class Section {
 
   /// Adds the warm picture light used on imperial and salon walls.
   final bool light;
+  final Alignment lightCenter;
+  final double lightRadius;
+  final double lightOpacity;
 }
 
 /// The frame every public page hangs in: header, sections, room map, footer.
@@ -92,7 +102,7 @@ class GalleryPage extends StatelessWidget {
   }
 
   Widget _band(Section s, Widget child, GalleryColors g) {
-    Widget band = s.light ? PictureLight(child: child) : child;
+    Widget band = s.light ? PictureLight(center: s.lightCenter, radius: s.lightRadius, opacity: s.lightOpacity, child: child) : child;
     return DecoratedBox(decoration: s.decoration ?? BoxDecoration(color: g.wall), child: band);
   }
 }
@@ -226,7 +236,8 @@ class TourFooter extends StatelessWidget {
       child: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 1240),
-          child: Wrap(
+          // Fill the column so spaceBetween pushes the contacts right.
+          child: SizedBox(width: double.infinity, child: Wrap(
             alignment: WrapAlignment.spaceBetween,
             crossAxisAlignment: WrapCrossAlignment.end,
             spacing: 32,
@@ -264,7 +275,7 @@ class TourFooter extends StatelessWidget {
                 ],
               ),
             ],
-          ),
+          )),
         ),
       ),
     );
