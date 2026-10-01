@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Chronicle</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="wall-vellum sans" style="color: #1C1830; padding: 96px 40px 120px">
+<div style="max-width: 1240px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px">
+
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div class="mono rise" style="color: #4B1F5E">Room III</div>
+<h2 class="alt rise d1" style="margin: 0; font-weight: 500; font-size: clamp(44px, 5vw, 68px); line-height: 1; color: #1F3A93">Chronicle</h2>
+<div class="rise d2" style="font-style: italic; font-size: 16px; color: #575170">“While we are postponing, life speeds by.” · Seneca</div>
+</div>
+<a href="#" class="btn btn-ink"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg> Download CV</a>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 64px; align-items: start">
+<div style="grid-column: span 2; display: flex; flex-direction: column">
+<sc-for list="{{roles}}" as="r" hint-placeholder-count="8">
+<div class="rise" style="display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 32px; border-top: 1px solid rgba(28,24,48,.15); padding: 28px 0">
+<div class="alt" style="font-weight: 500; font-size: 36px; line-height: 1; color: #1F3A93">{{r.year}}</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div class="alt" style="font-weight: 600; font-size: 22px; line-height: 1.2">{{r.role}}</div>
+<div class="mono" style="color: #4B1F5E">{{r.org}} · {{r.dates}}</div>
+<div style="font-size: 15px; line-height: 1.6; color: #403A5C">{{r.note}}</div>
+</div>
+</div>
+</sc-for>
+</div>
+
+<aside style="display: flex; flex-direction: column; gap: 40px">
+<div class="wall-tyrian" style="padding: 28px 28px 24px; display: flex; flex-direction: column; gap: 18px">
+<div class="frame frame-sm" style="background: #0B0A1C; padding: 0">
+<div class="win" style="aspect-ratio: 4 / 3"><img class="art" src="assets/menu_image5.png" alt="Marble fragment of a portrait of Marcus Aurelius"></div>
+</div>
+<div class="placard" style="padding: 12px 14px; gap: 2px">
+<div class="alt" style="font-weight: 600; font-size: 15px">Marcus Aurelius, fragment</div>
+<div style="font-size: 12px; color: #575170">Roman marble</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="mono" style="color: #4B1F5E">Education</div>
+<div style="font-size: 15px; line-height: 1.6"><b style="font-weight: 600">BSc Computer Science</b><br>University of Benin · 2020–2024<br><span style="color: #575170">Thesis: BrainPlay, a gamified learning platform</span></div>
+<div style="font-size: 15px; line-height: 1.6"><b style="font-weight: 600">Diploma</b><br>EdoBits ICT Academy · 2019–2020</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="mono" style="color: #4B1F5E">Instruments</div>
+<div style="font-size: 15px; line-height: 1.8; color: #403A5C">Flutter · Dart · Next.js · React · TypeScript · Node.js · Express · NestJS · PostgreSQL · MongoDB · Firebase · Python · Docker · GitHub Actions · Figma</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div class="mono" style="color: #4B1F5E">Volunteering</div>
+<div style="font-size: 15px; line-height: 1.7; color: #403A5C">AIESEC, Software Developer (2023) · Democracy Labs, Front-End Developer (2022) · Young Mind Invasion, Lead Graphics Designer (2019)</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2150}}'>
+class Component extends DCLogic {
+renderVals() {
+return {
+roles: [
+{ year: '2025', role: 'VP of Engineering', org: 'Synkkafrica Ltd', dates: 'Jun 2025 – present', note: 'Engineering strategy and architecture for a multi-service marketplace. Also Senior Developer / Technical Lead.' },
+{ year: '2025', role: 'Co-Founder · COO', org: 'Innovated Digital', dates: 'Apr 2025 – present', note: 'Product strategy across web and mobile delivery; client and partner relationships.' },
+{ year: '2025', role: 'Frontend Developer (Flutter)', org: 'RapidRobo Ltd', dates: 'Feb – Apr 2025', note: 'Responsive Flutter Web landing page with animation, deployed on Netlify.' },
+{ year: '2024', role: 'Full Stack Developer (Next.js)', org: 'ProxyLogic, Lagos', dates: 'Apr – Nov 2024', note: 'Next.js, TypeScript and Tailwind with SSR/SSG, REST and GraphQL, on Vercel and AWS.' },
+{ year: '2024', role: 'Software Engineer', org: 'National Centre for Remote Sensing', dates: '2024', note: 'Led GeoSmart, a GIS platform. Node/Express/PostgreSQL, Docker CI/CD, 30% faster APIs.' },
+{ year: '2022', role: 'Software Engineer (Flutter/Node.js)', org: 'RobyHub Optimum Services', dates: 'Nov 2022 – Apr 2023', note: 'UI and data visualisation work that lifted sales by 15%.' },
+{ year: '2022', role: 'Front-End & Full-Stack Developer', org: 'GIZ / SEDIN-GIZ Initiative', dates: 'Jun – Nov 2022', note: 'React and Node.js management systems for beneficiaries and trainers.' },
+{ year: '2021', role: 'Front Developer', org: 'iConcept Solutions, New York', dates: 'Jan – Mar 2021', note: 'Remote front-end work, maintaining and scaling the company site.' },
+{ year: '2020', role: 'Frontend Developer', org: 'Shaddai Communications', dates: 'Jan 2020 – Nov 2021', note: 'Design concepts and front-end work for marketing campaigns.' }
+]
+};
+}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- @dsCard group="Actions" height=140 -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:var(--wall)}
+.row{padding:28px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:52px;padding:0 28px;color:#fff;text-decoration:none;font-family:"Montserrat Alternates",sans-serif;font-weight:600;font-size:16px;border:none;border-radius:var(--radius-none);transition:transform .18s}
+.btn:hover{transform:translateY(-2px)}
+.btn:focus-visible{outline:2px solid var(--royal-action);outline-offset:3px}
+.primary{background:var(--royal-action)}
+.seal{background:var(--tyrian-action)}
+.outline{background:transparent;border:1px solid var(--tyrian-light);color:var(--ink);font-weight:500}
+.link{font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--royal-light);text-decoration:underline;text-underline-offset:6px}
+</style>
+<div class="row">
+<a href="#" class="btn primary">Enter the gallery <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a href="#" class="btn seal">Seal &amp; send</a>
+<a href="#" class="btn outline">Read the journal</a>
+<a href="#" class="link">View case study →</a>
+</div>

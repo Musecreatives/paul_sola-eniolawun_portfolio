@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Admin overview</title>
+<script src="./support.js"></script>
+<link rel="stylesheet" href="assets/gallery.css">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600&amp;family=Montserrat:ital,wght@0,400;0,500;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>body{margin:0}</style>
+</helmet>
+<div class="adm" style="width: 1440px; height: 1000px; display: grid; grid-template-columns: 260px minmax(0, 1fr)">
+<nav class="adm-side" aria-label="Admin" style="display: flex; flex-direction: column; justify-content: space-between; padding: 24px 14px">
+<div style="display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 0 8px"><span class="seal" style="width: 40px; height: 40px; font-size: 12px">PSE</span><span class="alt" style="font-weight: 600; font-size: 16px">Curator's office</span></div>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<a href="#" class="adm-nav adm-on">Overview</a>
+<a href="#" class="adm-nav">Journal <span class="mono" style="font-size: 12px">12</span></a>
+<a href="#" class="adm-nav">Works <span class="mono" style="font-size: 12px">7</span></a>
+<a href="#" class="adm-nav">Chronicle <span class="mono" style="font-size: 12px">9</span></a>
+<a href="#" class="adm-nav">Certificates <span class="mono" style="font-size: 12px">6</span></a>
+<a href="#" class="adm-nav">Collection <span class="mono" style="font-size: 12px">6</span></a>
+<a href="#" class="adm-nav">Now placard</a>
+<a href="#" class="adm-nav">Visitor book <span class="chip" style="background: #E2C57F; color: #1C1830">3</span></a>
+<a href="#" class="adm-nav">Letters <span class="chip" style="background: #7A3FA0; color: #fff">2</span></a>
+<a href="#" class="adm-nav">Media library</a>
+<a href="#" class="adm-nav">Settings</a>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 0 8px">
+<a href="#" class="ul" style="align-self: flex-start; font-size: 13px; color: #A8B9FF; padding-bottom: 2px">View live site ↗</a>
+<span style="font-size: 13px; color: #8F88B0">Paul · Curator</span>
+</div>
+</nav>
+
+<main style="padding: 32px 40px; display: flex; flex-direction: column; gap: 28px">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 4px"><span class="mono" style="font-size: 12px; color: #4B1F5E">Overview</span><span class="alt" style="font-size: 30px; font-weight: 600">Good evening, Paul</span></div>
+<div style="display: flex; gap: 12px; align-items: center">
+<label for="adm-search" style="position: absolute; left: -9999px">Search content</label>
+<input id="adm-search" class="input" type="search" placeholder="Search entries, works, roles…" style="width: 320px">
+<a href="#" class="btn" style="min-height: 48px; font-size: 15px">+ New entry</a>
+</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px">
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 6px"><span class="mono" style="font-size: 12px; color: #575170">Published entries</span><span class="alt" style="font-size: 36px; font-weight: 600; color: #1F3A93">[n]</span></div>
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 6px"><span class="mono" style="font-size: 12px; color: #575170">Drafts</span><span class="alt" style="font-size: 36px; font-weight: 600; color: #1F3A93">[n]</span></div>
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 6px"><span class="mono" style="font-size: 12px; color: #575170">Unread letters</span><span class="alt" style="font-size: 36px; font-weight: 600; color: #4B1F5E">[n]</span></div>
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 6px"><span class="mono" style="font-size: 12px; color: #575170">Notes awaiting approval</span><span class="alt" style="font-size: 36px; font-weight: 600; color: #4B1F5E">[n]</span></div>
+</div>
+
+<div style="display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 20px">
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 4px; padding: 0">
+<div style="display: flex; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid #E4E0F0"><span class="alt" style="font-weight: 600; font-size: 17px">Recent writing</span><a href="#" class="ul" style="font-size: 13px; color: #1F3A93">All entries</a></div>
+<sc-for list="{{drafts}}" as="d" hint-placeholder-count="5">
+<a href="#" style="display: grid; grid-template-columns: minmax(0, 1fr) 120px 110px; gap: 16px; align-items: center; padding: 14px 20px; border-bottom: 1px solid #F0EDF7; text-decoration: none; color: #1C1830">
+<span style="font-size: 15px; font-weight: 500">{{d.title}}</span>
+<span class="mono" style="font-size: 12px; color: #575170">{{d.when}}</span>
+<span class="chip" style="background: {{d.bg}}; color: {{d.fg}}; justify-self: start">{{d.status}}</span>
+</a>
+</sc-for>
+</div>
+<div style="display: flex; flex-direction: column; gap: 20px">
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 14px">
+<span class="alt" style="font-weight: 600; font-size: 17px">Letters</span>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px; font-weight: 600"><span aria-label="Unread" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #7A3FA0; margin-right: 8px"></span>[Sender] · Commission a project</span><span style="font-size: 13px; color: #575170">[First line of the letter…]</span></div>
+<div style="display: flex; flex-direction: column; gap: 4px"><span style="font-size: 14px; font-weight: 600"><span aria-label="Unread" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #7A3FA0; margin-right: 8px"></span>[Sender] · Collaboration</span><span style="font-size: 13px; color: #575170">[First line of the letter…]</span></div>
+</div>
+<div class="adm-card" style="display: flex; flex-direction: column; gap: 12px">
+<span class="alt" style="font-weight: 600; font-size: 17px">Quick add</span>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">+ Journal entry</a>
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">+ Role</a>
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">+ Work</a>
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">+ Certificate</a>
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">+ Collection piece</a>
+<a href="#" class="adm-card" style="padding: 12px; text-decoration: none; color: #1F3A93; font-size: 14px; font-weight: 500">Update Now placard</a>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+renderVals() {
+const st = {
+Draft: { bg: '#EEE9F8', fg: '#4B1F5E' },
+Scheduled: { bg: '#E3E9FF', fg: '#1F3A93' },
+Published: { bg: '#E2F5EA', fg: '#1D6B40' }
+};
+const rows = [
+{ title: '[Sample: what Stoicism taught me about on-call]', when: '[2h ago]', status: 'Draft' },
+{ title: '[Sample: designing a marketplace admin for scale]', when: '[Tomorrow]', status: 'Scheduled' },
+{ title: '[Sample: Flutter Web in production, honestly]', when: '[3 days ago]', status: 'Published' },
+{ title: '[Sample: sketchbook notes on the gallery redesign]', when: '[Last week]', status: 'Published' },
+{ title: '[Untitled entry]', when: '[Last week]', status: 'Draft' }
+];
+return { drafts: rows.map((r) => ({ ...r, bg: st[r.status].bg, fg: st[r.status].fg })) };
+}
+}
+</script>
+</body>
+</html>

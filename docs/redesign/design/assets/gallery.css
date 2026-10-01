@@ -1,0 +1,70 @@
+/* The Collection — Imperial palette: Roman royal blue + Tyrian purple, gilt accents */
+body{margin:0;background:#0B0A1C}
+a{color:#A8B9FF}a:hover{color:#F3EEE3}
+.alt{font-family:'Montserrat Alternates',sans-serif}
+.mono{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+.sans{font-family:'Montserrat',sans-serif}
+
+/* Walls */
+.wall-imperial{background:radial-gradient(ellipse 45% 55% at 72% 34%,rgba(226,197,127,.10),transparent 70%),linear-gradient(135deg,#132766 0%,#1E1752 50%,#341552 100%)}
+.wall-indigo{background:#16123A}
+.wall-tyrian{background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(226,197,127,.08),transparent 70%),#3A1650}
+.wall-vellum{background:#F3EEE3}
+.wall-paper{background:#FAF7F0}
+
+/* Frames + placards */
+.frame{border:14px solid #8A6A2F;outline:1px solid #D9B872;outline-offset:-9px;background:#EDE6D6;padding:18px;box-shadow:0 40px 80px rgba(5,3,20,.6);transition:transform .5s cubic-bezier(.2,.7,.1,1),box-shadow .5s}
+.frame:hover{transform:translateY(-6px);box-shadow:0 60px 110px rgba(5,3,20,.72)}
+.frame-sm{border-width:10px;outline-offset:-7px;padding:12px}
+.win{overflow:hidden;position:relative}
+.art{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.32);animation:drift 26s ease-in-out infinite}
+.photo{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 12%}
+.placard{background:#F6F2EA;color:#1C1830;padding:14px 16px;box-shadow:0 12px 28px rgba(5,3,20,.45);display:flex;flex-direction:column;gap:4px}
+.plate{background-color:#EFEAF6;background-image:linear-gradient(rgba(31,58,147,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(31,58,147,.10) 1px,transparent 1px);background-size:22px 22px;color:#1C1830}
+.plate-dark{background-color:#0E0C26;background-image:linear-gradient(rgba(168,185,255,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(168,185,255,.12) 1px,transparent 1px);background-size:28px 28px;color:#F3EEE3}
+.lamp{height:7px;border-radius:4px;background:#C9A24A;box-shadow:0 8px 32px rgba(255,214,140,.55);animation:lighton 1.6s ease-out both}
+
+/* Actions */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 28px;background:#2D4FC4;color:#fff;text-decoration:none;font-family:'Montserrat Alternates',sans-serif;font-weight:600;font-size:16px;border:none;cursor:pointer;transition:background .18s,transform .18s}
+.btn:hover{background:#3B5EE3;color:#fff;transform:translateY(-2px)}
+.btn-purple{background:#5B2A78}.btn-purple:hover{background:#6D3590}
+.btn2{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 28px;background:transparent;border:1px solid #CDB3EE;color:#F3EEE3;text-decoration:none;font-family:'Montserrat Alternates',sans-serif;font-weight:500;font-size:16px;cursor:pointer;transition:background .18s}
+.btn2:hover{background:rgba(205,179,238,.12);color:#fff}
+.btn-ink{background:#1C1830}.btn-ink:hover{background:#2A2450}
+.ul{text-decoration:none;background-image:linear-gradient(currentColor,currentColor);background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;transition:background-size .35s cubic-bezier(.2,.7,.1,1)}
+.ul:hover{background-size:100% 1px}
+.icon-btn{width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(205,179,238,.35);border-radius:50%;color:#F3EEE3;cursor:pointer}
+.seal{width:48px;height:48px;border-radius:50%;background:#4B1F5E;border:1.5px solid #C9A24A;display:flex;align-items:center;justify-content:center;font-family:'Montserrat Alternates',sans-serif;font-weight:600;font-size:14px;color:#F3EEE3;text-decoration:none}
+
+/* Forms */
+.field{display:flex;flex-direction:column;gap:8px}
+.label{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#4B1F5E}
+.input{min-height:48px;box-sizing:border-box;padding:12px 14px;border:1px solid rgba(28,24,48,.25);background:#FFFDF8;font-family:'Montserrat',sans-serif;font-size:15px;color:#1C1830;width:100%}
+.input:focus{outline:2px solid #2D4FC4;outline-offset:1px}
+
+/* Room map (tour progress) */
+.roommap{display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.roommap span{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:rgba(243,238,227,.45);display:flex;align-items:center;gap:10px}
+.roommap span::after{content:'';width:18px;height:1px;background:currentColor}
+.roommap .on{color:#E2C57F}.roommap .on::after{width:40px}
+
+/* Admin */
+.adm{background:#F7F5FB;color:#1C1830;font-family:'Montserrat',sans-serif}
+.adm-side{background:#141033;color:#E6E1F5}
+.adm-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;color:#C9C2E6;text-decoration:none;font-size:14px}
+.adm-nav:hover{background:#221B52;color:#fff}
+.adm-on{background:#2D4FC4;color:#fff}
+.adm-card{background:#fff;border:1px solid #E4E0F0;padding:20px}
+.chip{display:inline-flex;align-items:center;padding:3px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+
+/* Motion */
+.rise{animation:rise .9s cubic-bezier(.2,.7,.1,1) both}
+.d1{animation-delay:.08s}.d2{animation-delay:.16s}.d3{animation-delay:.24s}.d4{animation-delay:.32s}.d5{animation-delay:.4s}.d6{animation-delay:.5s}
+.draw{transform-origin:left center;animation:draw 1.2s cubic-bezier(.2,.7,.1,1) both}
+.fadein{animation:fadein .9s ease both}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes lighton{0%{opacity:0}25%{opacity:.75}35%{opacity:.15}55%{opacity:.9}100%{opacity:1}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes drift{0%,100%{transform:scale(1.32) translate(0,0)}50%{transform:scale(1.38) translate(-1.5%,-1%)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
