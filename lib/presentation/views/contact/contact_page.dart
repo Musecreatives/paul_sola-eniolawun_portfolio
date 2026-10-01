@@ -57,10 +57,10 @@ class _ContactPageState extends State<ContactPage>
     }
   }
 
-  Widget _socialIcon(IconData icon, String url) {
+  Widget _socialIcon(FaIconData icon, String url) {
     return _HoverScale(
       child: IconButton(
-        icon: Icon(icon, size: 40, color: AppColors.kblack),
+        icon: FaIcon(icon, size: 40, color: AppColors.kblack),
         onPressed: () => launchUrl(Uri.parse(url)),
       ),
     );
@@ -194,8 +194,7 @@ class _ContactPageState extends State<ContactPage>
                   width: double.infinity,
                   child: ElevatedButton.icon(
                     onPressed: _submit,
-                    icon: const Icon(
-                      FontAwesomeIcons.telegram,
+                    icon: const FaIcon(FontAwesomeIcons.telegram,
                       color: Colors.white,
                     ),
                     label: const Text(

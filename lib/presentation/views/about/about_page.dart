@@ -178,20 +178,19 @@ class _AboutPageState extends State<AboutPage>
         mainAxisSize: MainAxisSize.min,
         children: [
           IconButton(
-            icon: Icon(FontAwesomeIcons.figma, color: AppColors.ktextPrimary),
+            icon: FaIcon(FontAwesomeIcons.figma, color: AppColors.ktextPrimary),
             onPressed: () {},
           ),
           const SizedBox(height: 16),
           IconButton(
-            icon: Icon(
-              FontAwesomeIcons.linkedin,
+            icon: FaIcon(FontAwesomeIcons.linkedin,
               color: AppColors.ktextPrimary,
             ),
             onPressed: () {},
           ),
           const SizedBox(height: 16),
           IconButton(
-            icon: Icon(FontAwesomeIcons.github, color: AppColors.ktextPrimary),
+            icon: FaIcon(FontAwesomeIcons.github, color: AppColors.ktextPrimary),
             onPressed: () {},
           ),
         ],
@@ -326,8 +325,7 @@ class _AboutPageState extends State<AboutPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.figma,
+                      icon: FaIcon(FontAwesomeIcons.figma,
                         color: AppColors.ktextPrimary,
                       ),
                       onPressed:
@@ -336,8 +334,7 @@ class _AboutPageState extends State<AboutPage>
                           ),
                     ),
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.linkedin,
+                      icon: FaIcon(FontAwesomeIcons.linkedin,
                         color: AppColors.ktextPrimary,
                       ),
                       onPressed:
@@ -346,8 +343,7 @@ class _AboutPageState extends State<AboutPage>
                           ),
                     ),
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.github,
+                      icon: FaIcon(FontAwesomeIcons.github,
                         color: AppColors.ktextPrimary,
                       ),
                       onPressed:

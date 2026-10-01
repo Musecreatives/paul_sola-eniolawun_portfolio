@@ -166,8 +166,7 @@ class _FooterSectionState extends State<FooterSection>
                       isWide ? MainAxisAlignment.end : MainAxisAlignment.center,
                   children: [
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.xTwitter,
+                      icon: FaIcon(FontAwesomeIcons.xTwitter,
                         color: textWhite,
                         size: isWide ? 24 : 20,
                       ),
@@ -185,8 +184,7 @@ class _FooterSectionState extends State<FooterSection>
                           () => _launchUrl('https://discord.gg/paulostic_dev'),
                     ),
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.figma,
+                      icon: FaIcon(FontAwesomeIcons.figma,
                         color: textWhite,
                         size: isWide ? 24 : 20,
                       ),
@@ -194,8 +192,7 @@ class _FooterSectionState extends State<FooterSection>
                           () => _launchUrl('https://www.figma.com/@paulostic1'),
                     ),
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.linkedin,
+                      icon: FaIcon(FontAwesomeIcons.linkedin,
                         color: textWhite,
                         size: isWide ? 24 : 20,
                       ),
@@ -205,8 +202,7 @@ class _FooterSectionState extends State<FooterSection>
                           ),
                     ),
                     IconButton(
-                      icon: Icon(
-                        FontAwesomeIcons.github,
+                      icon: FaIcon(FontAwesomeIcons.github,
                         color: textWhite,
                         size: isWide ? 24 : 20,
                       ),
