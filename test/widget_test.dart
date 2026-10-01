@@ -9,6 +9,9 @@ Future<void> boot(WidgetTester tester, String path, {Size size = const Size(1440
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
+  // Rooms are checked at rest; motion has its own tests (motion_test.dart).
+  tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
+  addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
   final bundle = await tester.runAsync(ContentStore.loadBundled);
   await tester.pumpWidget(Content(store: ContentStore(bundle!), child: const CollectionApp()));
   router.go(path);

@@ -51,6 +51,8 @@ Future<void> _boot(WidgetTester tester, String path, {bool signedIn = true, Size
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
+  tester.platformDispatcher.accessibilityFeaturesTestValue = const FakeAccessibilityFeatures(disableAnimations: true);
+  addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
   final pb = PocketBase('http://cms.test', httpClientFactory: () => MockClient((req) async {
         final seg = req.url.pathSegments;
         if (seg.length >= 4 && seg[3] == 'records') {
