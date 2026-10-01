@@ -1,12 +1,11 @@
 {
-    "name": "muse_creatives_portfolio",
-    "short_name": "muse_creatives_portfolio",
+    "name": "Paul Sola-Eniolawun · The Collection",
+    "short_name": "The Collection",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
-    "orientation": "portrait-primary",
+    "background_color": "#0B0A1C",
+    "theme_color": "#16123A",
+    "description": "Paul Sola-Eniolawun's portfolio, hung like a Roman gallery.",
     "prefer_related_applications": false,
     "icons": [
         {
