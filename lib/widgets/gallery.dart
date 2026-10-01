@@ -489,7 +489,7 @@ class RoomHeader extends StatelessWidget {
           step: 1,
           child: Semantics(
             header: true,
-            child: Text(title,
+            child: FitWords(title,
                 textAlign: center ? TextAlign.center : TextAlign.start,
                 style: T.display(titleSize, weight: FontWeight.w500, color: g.title)),
           ),
@@ -614,4 +614,29 @@ class Fact extends StatelessWidget {
         spacing: 4,
         children: [Mono(label, color: labelColor), Text(value, style: valueStyle ?? T.body(14, height: 1.5))],
       );
+}
+
+/// Display text that shrinks its font until its longest word fits the width,
+/// so titles like "Correspondence" never break mid-word on phones.
+class FitWords extends StatelessWidget {
+  const FitWords(this.text, {super.key, required this.style, this.textAlign});
+  final String text;
+  final TextStyle style;
+  final TextAlign? textAlign;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(builder: (context, c) {
+        var s = style;
+        if (c.maxWidth.isFinite) {
+          final longest = text.split(RegExp(r'\s+')).fold('', (a, b) => b.length > a.length ? b : a);
+          final tp = TextPainter(
+            text: TextSpan(text: longest, style: style),
+            textDirection: TextDirection.ltr,
+            textScaler: MediaQuery.textScalerOf(context),
+          )..layout();
+          if (tp.width > c.maxWidth) s = style.copyWith(fontSize: (style.fontSize ?? 14) * c.maxWidth / tp.width * .98);
+          tp.dispose();
+        }
+        return Text(text, style: s, textAlign: textAlign);
+      });
 }

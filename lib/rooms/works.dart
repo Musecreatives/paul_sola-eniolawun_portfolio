@@ -143,7 +143,7 @@ class _PlateCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Mono('Plate ${w.numeral}', color: Palette.tyrian),
-                  Text(w.title, style: T.display(30, height: 1.05, color: Palette.royal)),
+                  FitWords(w.title, style: T.display(30, height: 1.05, color: Palette.royal)),
                 ],
               ),
             ),
