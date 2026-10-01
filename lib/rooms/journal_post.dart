@@ -97,7 +97,6 @@ class _Post extends StatelessWidget {
   Widget build(BuildContext context) {
     final g = context.g;
     final width = context.width;
-    final threeCol = width >= 1290;
     final pieces = renderMarkdown(context, p.body);
     final headings = pieces.where((x) => x.anchor != null).toList();
     final art = p.cover.isEmpty ? Painting.byKey(p.coverPainting) : null;
@@ -111,28 +110,29 @@ class _Post extends StatelessWidget {
           ],
         );
 
-    final article = SelectionArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        spacing: 22,
-        children: [
-          for (final piece in pieces)
-            if (threeCol)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 40,
-                children: [
-                  SizedBox(width: 680, child: piece.widget),
-                  SizedBox(width: 200, child: piece.margin == null ? null : marginNote(piece.margin!)),
+    // Mockup grid: 200px contents | up to 680px article | 200px margin, 40px gaps.
+    Widget article(double articleWidth, {required bool threeCol}) => SelectionArea(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            spacing: 22,
+            children: [
+              for (final piece in pieces)
+                if (threeCol)
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: 40,
+                    children: [
+                      SizedBox(width: articleWidth, child: piece.widget),
+                      SizedBox(width: 200, child: piece.margin == null ? null : marginNote(piece.margin!)),
+                    ],
+                  )
+                else ...[
+                  piece.widget,
+                  if (piece.margin != null) _inlineMargin(context, piece.margin!),
                 ],
-              )
-            else ...[
-              piece.widget,
-              if (piece.margin != null) _inlineMargin(context, piece.margin!),
             ],
-        ],
-      ),
-    );
+          ),
+        );
 
     final toc = headings.isEmpty
         ? null
@@ -159,7 +159,7 @@ class _Post extends StatelessWidget {
 
     return RoomBody(
       top: 64,
-      maxWidth: 1200,
+      maxWidth: 1100,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         spacing: 56,
@@ -199,20 +199,23 @@ class _Post extends StatelessWidget {
               ],
             ),
           ),
-          if (threeCol)
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              spacing: 40,
-              children: [SizedBox(width: 200, child: toc), Flexible(child: article)],
-            )
-          else
-            Center(
+          LayoutBuilder(builder: (context, c) {
+            final articleWidth = (c.maxWidth - 480).clamp(0.0, 680.0);
+            if (articleWidth >= 520) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                spacing: 40,
+                children: [SizedBox(width: 200, child: toc), SizedBox(width: articleWidth + 240, child: article(articleWidth, threeCol: true))],
+              );
+            }
+            return Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 680),
-                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, spacing: 40, children: [?toc, article]),
+                child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, spacing: 40, children: [?toc, article(680, threeCol: false)]),
               ),
-            ),
+            );
+          }),
           Center(
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 760),
@@ -220,14 +223,24 @@ class _Post extends StatelessWidget {
                 spacing: 24,
                 children: [
                   _Author(p),
-                  Row(
-                    spacing: 24,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: prev == null ? const SizedBox() : _Neighbour(prev!, previous: true)),
-                      Expanded(child: next == null ? const SizedBox() : _Neighbour(next!, previous: false)),
-                    ],
-                  ),
+                  if (context.isCompact)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      spacing: 16,
+                      children: [
+                        if (prev != null) _Neighbour(prev!, previous: true),
+                        if (next != null) _Neighbour(next!, previous: false),
+                      ],
+                    )
+                  else
+                    Row(
+                      spacing: 24,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(child: prev == null ? const SizedBox() : _Neighbour(prev!, previous: true)),
+                        Expanded(child: next == null ? const SizedBox() : _Neighbour(next!, previous: false)),
+                      ],
+                    ),
                 ],
               ),
             ),
