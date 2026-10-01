@@ -55,7 +55,7 @@ class _CaseStudy extends StatelessWidget {
     final facts = [
       ('Role', w.role.isEmpty ? '[Role]' : w.role),
       ('Dated', w.dated.isNotEmpty ? w.dated : w.year),
-      ('Medium', w.medium),
+      ('Medium', w.medium.replaceAll(', ', ' · ')),
       ('Team', w.team.isEmpty ? '[Team size]' : w.team),
     ];
 
@@ -91,16 +91,22 @@ class _CaseStudy extends StatelessWidget {
             decoration: BoxDecoration(border: Border.all(color: g.hairline)),
             child: LayoutBuilder(builder: (context, c) {
               final cols = c.maxWidth < 640 ? 2 : 4;
-              final cw = (c.maxWidth - (cols - 1)) / cols;
+              Widget cell((String, String) f) => Container(
+                    color: g.wall,
+                    padding: const EdgeInsets.all(20),
+                    child: Fact(f.$1, f.$2, labelColor: g.giltLight, valueStyle: T.body(16, height: 1.4, color: g.ink)),
+                  );
+              // Rows of equal-height cells with 1px hairlines between them.
               return Container(
                 color: g.hairline,
-                child: Wrap(spacing: 1, runSpacing: 1, children: [
-                  for (final (k, v) in facts)
-                    Container(
-                      width: cw,
-                      color: g.wall,
-                      padding: const EdgeInsets.all(20),
-                      child: Fact(k, v, labelColor: g.giltLight, valueStyle: T.body(16, height: 1.4, color: g.ink)),
+                child: Column(spacing: 1, children: [
+                  for (var r = 0; r < facts.length; r += cols)
+                    IntrinsicHeight(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        spacing: 1,
+                        children: [for (final f in facts.skip(r).take(cols)) Expanded(child: cell(f))],
+                      ),
                     ),
                 ]),
               );
@@ -238,7 +244,12 @@ class _Architecture extends StatelessWidget {
             ],
           ),
         );
-    final arrowW = Glyph(GlyphKind.arrowRight, size: 40, stroke: 1.2, color: g.giltLight);
+    // Below ~900px the row would overflow, so the diagram reads top to bottom.
+    final compact = context.width < 900;
+    final arrowW = RotatedBox(
+      quarterTurns: compact ? 1 : 0,
+      child: Glyph(GlyphKind.arrowRight, size: 40, stroke: 1.2, color: g.giltLight),
+    );
     final clients = [for (final c in (a['clients'] as List? ?? const [])) box('Client', '$c')];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -247,10 +258,11 @@ class _Architecture extends StatelessWidget {
         Mono('Architecture', color: g.giltLight),
         ExcludeSemantics(
           excluding: false,
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
+          child: Flex(
+            direction: compact ? Axis.vertical : Axis.horizontal,
+            crossAxisAlignment: compact ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             spacing: 16,
-            runSpacing: 16,
             children: [
               Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, spacing: 12, children: clients),
               arrowW,

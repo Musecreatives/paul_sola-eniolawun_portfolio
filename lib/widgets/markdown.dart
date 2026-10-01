@@ -133,7 +133,8 @@ class _Renderer {
         final key = GlobalKey();
         final Widget w;
         if (mode == MdMode.caseStudy) {
-          w = Mono(text, color: g.giltLight);
+          // Sections sit 40px apart; the label sits 14px above its text.
+          w = Padding(padding: EdgeInsets.only(top: out.isEmpty ? 0 : 26), child: Mono(text, color: g.giltLight));
         } else {
           final size = switch ((n.tag, preview)) { ('h2', false) => 28.0, ('h2', true) => 20.0, (_, false) => 22.0, _ => 17.0 };
           w = Padding(
