@@ -155,9 +155,15 @@ class _LetterFormState extends State<_LetterForm> {
               }),
               GallerySelect(label: 'Purpose', value: _purpose, options: purposes, onChanged: (v) => setState(() => _purpose = v)),
               GalleryField(label: 'Letter', controller: _message, lines: 6, maxLength: 5000, validator: needs('a few words')),
-              Honeypot(_trap),
-              StatusLine(_status),
-              Wrap(
+              // The honeypot and an empty status line take no row gap.
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                Honeypot(_trap),
+                ValueListenableBuilder(
+                  valueListenable: _status,
+                  builder: (_, s, _) =>
+                      s.message == null ? const SizedBox.shrink() : Padding(padding: const EdgeInsets.only(bottom: 20), child: StatusLine(_status)),
+                ),
+                Wrap(
                 alignment: WrapAlignment.spaceBetween,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 spacing: 16,
@@ -187,6 +193,7 @@ class _LetterFormState extends State<_LetterForm> {
                   ),
                 ],
               ),
+              ]),
             ],
           ),
         ),
@@ -251,10 +258,16 @@ class _VisitorBookState extends State<_VisitorBook> {
               labelColor: g.tyrianLight,
               validator: needs('a note'),
             ),
-            StatusLine(_status, onDark: !g.isDay),
             ValueListenableBuilder(
               valueListenable: _status,
-              builder: (_, s, _) => GalleryButton(label: 'Sign the book', busy: s.busy, onPressed: _sign),
+              builder: (_, s, _) => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                spacing: 14,
+                children: [
+                  if (s.message != null) StatusLine(_status, onDark: !g.isDay),
+                  GalleryButton(label: 'Sign the book', busy: s.busy, onPressed: _sign),
+                ],
+              ),
             ),
           ],
         ),
