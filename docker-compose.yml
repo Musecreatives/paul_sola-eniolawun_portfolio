@@ -1,8 +1,10 @@
 # The Sola-Eniolawun Collection: Flutter web (nginx) + PocketBase, with
-# optional automatic HTTPS through Caddy.
+# optional public access through a Cloudflare Tunnel or automatic HTTPS
+# through Caddy. Use one of the two, not both.
 #
 #   cp .env.example .env            # then edit it
 #   docker compose up -d --build                    # HTTP on ${WEB_PORT:-8080}
+#   docker compose --profile tunnel up -d --build   # + Cloudflare Tunnel (no open ports)
 #   docker compose --profile tls up -d --build      # + Caddy on 80/443 for $DOMAIN
 #
 # See docs/DEPLOY.md.
@@ -48,8 +50,8 @@ services:
     depends_on:
       pocketbase:
         condition: service_healthy
-    # With the tls profile, Caddy reaches web over the compose network, so you
-    # can bind this to localhost only: WEB_PORT=127.0.0.1:8080
+    # With the tunnel or tls profile, cloudflared/Caddy reach web over the
+    # compose network, so bind this to localhost only: WEB_PORT=127.0.0.1:8080
     ports:
       - "${WEB_PORT:-8080}:80"
     healthcheck:
@@ -57,6 +59,28 @@ services:
       interval: 30s
       timeout: 5s
       start_period: 10s
+      retries: 3
+
+  # Cloudflare Tunnel: an outbound-only connection to Cloudflare, so the server
+  # needs no open inbound ports. The tunnel's public hostname is configured in
+  # the Cloudflare dashboard and must point at http://web:80 (docs/DEPLOY.md).
+  cloudflared:
+    image: cloudflare/cloudflared:2026.9.3
+    profiles: ["tunnel"]
+    restart: unless-stopped
+    depends_on:
+      web:
+        condition: service_healthy
+    command: tunnel --no-autoupdate --metrics 127.0.0.1:20241 run
+    environment:
+      # Must be set in .env when using this profile (from Zero Trust → Networks
+      # → Tunnels → your tunnel → Install connector). It is a secret.
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    healthcheck:
+      test: ["CMD", "cloudflared", "tunnel", "--metrics", "127.0.0.1:20241", "ready"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
       retries: 3
 
   caddy:

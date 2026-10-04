@@ -1,11 +1,12 @@
 # Deploying
 
-The site runs as two containers, plus an optional third for HTTPS:
+The site runs as two containers, plus one optional container that makes it public over HTTPS: either a Cloudflare Tunnel or Caddy.
 
 | Service | What it is | Port |
 | --- | --- | --- |
 | `web` | nginx serving the Flutter web build. Proxies `/api/` and `/_/` to PocketBase on the same origin. | `${WEB_PORT:-8080}` on the host, 80 inside |
 | `pocketbase` | PocketBase v0.40.4 with `pb_migrations/` and `pb_hooks/` mounted read-only. Data lives in the `pb_data` volume. | 8090, internal only |
+| `cloudflared` (profile `tunnel`) | Cloudflare Tunnel connector. Opens an outbound connection to Cloudflare, which serves your domain over HTTPS and forwards requests to `web`. | none (outbound only) |
 | `caddy` (profile `tls`) | Automatic HTTPS for `$DOMAIN`, reverse proxy to `web`. Adds HSTS. | 80 and 443 |
 
 Paths on the site:
@@ -20,7 +21,9 @@ Paths on the site:
 
 - A Linux server (amd64 or arm64) with Docker Engine and the Compose plugin (`docker compose version`).
 - About 2 GB of free RAM and 5 GB of disk for the first build. The Flutter SDK is downloaded inside the build stage.
-- For HTTPS: a domain whose A/AAAA records point at the server, and ports 80 and 443 open.
+- For HTTPS, one of:
+  - **Cloudflare Tunnel**: a domain whose DNS is managed by Cloudflare (its nameservers point to Cloudflare) and a free Cloudflare Zero Trust account. No open ports or public IP needed.
+  - **Caddy**: a domain whose A/AAAA records point at the server, and ports 80 and 443 open.
 - Node 18 or newer on any machine that can reach the site, for the seed script (or use the throwaway container below).
 
 ## First deploy
@@ -39,7 +42,53 @@ docker compose ps     # both services should be "healthy"
 curl -fsS http://127.0.0.1:8080/healthz
 ```
 
-With automatic HTTPS (set `DOMAIN` and `SITE_URL=https://$DOMAIN` in `.env` first):
+To make it public, pick **one** of the two options below.
+
+### Option A: Cloudflare Tunnel (recommended for a home or private server)
+
+The `cloudflared` container dials out to Cloudflare. Cloudflare serves your domain over HTTPS and sends requests down the tunnel to nginx, so the server needs no open inbound ports.
+
+1. **Create the tunnel.** In the Cloudflare dashboard go to Zero Trust → Networks → Tunnels → Create a tunnel, choose **Cloudflared**, and name it (for example `portfolio`). On the install step pick **Docker** and copy only the token: the long string after `--token`. You don't need to run the command it shows; Compose runs the connector.
+2. **Fill in `.env`:**
+
+   ```sh
+   CLOUDFLARE_TUNNEL_TOKEN=<the token>
+   DOMAIN=example.com              # your domain
+   SITE_URL=https://example.com
+   WEB_PORT=127.0.0.1:8080         # keep nginx off the public network
+   ```
+
+3. **Route your hostname to the site.** In the tunnel, open the public hostname tab (called "Public Hostnames" or "Published application routes", depending on the dashboard version) and add:
+   - Subdomain: empty for the bare domain (add a second route for `www` if you want it)
+   - Domain: your domain
+   - Service: type **HTTP**, URL **`web:80`**
+
+   Cloudflare creates the DNS record for you. The URL must be `web:80` (the Compose service name), not `localhost`: cloudflared runs in its own container.
+4. **Start it:**
+
+   ```sh
+   docker compose --profile tunnel up -d --build
+   docker compose ps                    # pocketbase, web and cloudflared "healthy"
+   docker compose logs cloudflared      # look for "Registered tunnel connection"
+   ```
+
+   The tunnel shows as **Healthy** in the dashboard, and the site answers at `https://<your domain>`.
+5. **Cloudflare settings for this site** (dashboard → your domain):
+   - **Speed → Optimization → Rocket Loader: off.** It rewrites the page's script tags to load through a Cloudflare script, which the site's Content-Security-Policy blocks, and the app wouldn't start.
+   - **Scrape Shield → Email Address Obfuscation: off.** It injects a script into HTML for the same reason. The site's email address is drawn by Flutter, so obfuscation adds nothing.
+   - **Cloudflare Web Analytics:** if you enable the automatic beacon, add `https://static.cloudflareinsights.com` to `script-src` and `https://cloudflareinsights.com` to `connect-src` in `deploy/nginx/csp.conf`, or the beacon is blocked.
+   - **SSL/TLS → Edge Certificates:** turn on **Always Use HTTPS**. Enable HSTS there once the site works over HTTPS. The encryption mode doesn't matter for a tunnel; the tunnel is already encrypted.
+   - **Caching:** the defaults are fine; Cloudflare follows nginx's `Cache-Control` headers. Don't add a "Cache Everything" rule for `/api/*` or `/admin*`. Images and fonts under `/assets/` and `/canvaskit/` may be cached at Cloudflare for up to a week, so after a release that changes them, use Caching → Configuration → **Purge Everything**.
+6. **Protect the PocketBase dashboard (recommended).** In Zero Trust → Access → Applications, add a **Self-hosted** application for your domain with path `_/`, and a policy that allows only your email address. Cloudflare then asks for a one-time code before anyone reaches `/_/`. Leave `/api/` unprotected: the public site and the `/admin` office both use it.
+7. **Close the ports.** With the tunnel nothing has to listen publicly. Your firewall can block all inbound traffic except SSH.
+
+Visitor IPs: Cloudflare sends the visitor's address in `X-Forwarded-For`. nginx trusts it from cloudflared (a private Docker address) and passes it on to PocketBase, so the per-visitor rate limits work. You can check real addresses in `/_/` → Logs.
+
+Don't run the `tunnel` and `tls` profiles together: with a tunnel, Cloudflare provides the HTTPS certificate.
+
+### Option B: Caddy with automatic HTTPS
+
+Set `DOMAIN` and `SITE_URL=https://$DOMAIN` in `.env` first, point the domain's A/AAAA records at the server and open ports 80 and 443, then:
 
 ```sh
 docker compose --profile tls up -d --build
@@ -139,7 +188,7 @@ PocketBase runs as uid 10001, hence the `chown`.
 
 ```sh
 git pull
-docker compose up -d --build                 # add --profile tls if you use Caddy
+docker compose --profile tunnel up -d --build   # or --profile tls with Caddy, or neither
 docker image prune -f                        # optional: drop old image layers
 ```
 
@@ -158,12 +207,15 @@ The Flutter SDK is pinned the same way (`FLUTTER_VERSION` and `FLUTTER_SHA256` i
 
 ```sh
 docker compose ps                         # health of each service
-docker compose logs -f web pocketbase     # add caddy with the tls profile
+docker compose logs -f web pocketbase     # add cloudflared or caddy if you use one
 docker compose exec pocketbase wget -qO- http://127.0.0.1:8090/api/health
 ```
 
 - **`web` never starts**: it waits for `pocketbase` to be healthy. Check `docker compose logs pocketbase`. A failing migration or hook shows up there.
 - **502 on `/api/`**: PocketBase is down or restarting. nginx resolves it by name on each request, so it recovers on its own once PocketBase is back.
+- **Cloudflare shows error 1033 or "tunnel not found"**: the `cloudflared` container isn't running or the token is wrong. Check `docker compose logs cloudflared` and `CLOUDFLARE_TUNNEL_TOKEN` in `.env`, then `docker compose --profile tunnel up -d`.
+- **Cloudflare shows 502 "Bad gateway" through the tunnel**: the public hostname's service isn't `http://web:80`, or `web` is unhealthy (`docker compose ps`).
+- **Site loads but stays blank behind Cloudflare**: Rocket Loader or another Cloudflare feature injected a script that the CSP blocks. Turn it off (see Option A, step 5) and purge the cache.
 - **Caddy cannot get a certificate**: DNS for `DOMAIN` does not point at this server yet, or ports 80/443 are blocked. Fix it and run `docker compose restart caddy`.
 - **Uploads fail with 413**: nginx accepts up to 20 MB (`client_max_body_size` in `deploy/nginx/default.conf`). PocketBase also enforces each file field's own max size.
 - **Letters arrive but no email**: see the `[mail]` lines in the PocketBase log.
