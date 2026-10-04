@@ -88,7 +88,7 @@ docker compose logs cloudflared    # look for "Registered tunnel connection" (4 
 
 Open `https://<your domain>/`. The tunnel shows **Healthy** in the dashboard.
 
-Then replace `[DOMAIN]` in `web/index.html` with your domain (canonical and social-preview tags), commit, and run `docker compose --profile tunnel up -d --build` again.
+The canonical and social-preview tags in `web/index.html` already use `paulsolaeniolawun.com`. If the domain ever changes, update them there too.
 
 ### 4. Cloudflare settings that matter for this site
 

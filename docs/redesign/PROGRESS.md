@@ -75,7 +75,7 @@ Where the HANDOFF.md build stands. Branch `redesign/renaissance`. Last updated 2
 
 Search with `grep -rn "TODO(paul)" lib tool`:
 - CV PDF (replace if wanted); social URLs to confirm; Now placard "reading"; public-domain art for menu rooms VII and VIII; case-study content per work; live URL for Synkkafrica; certificate scans, verify URLs and the three in-progress placeholders; usual reply time.
-- `[DOMAIN]` in `web/index.html`; sources and licences for every painting in `ART_CREDITS.md`; portrait photographer credit.
+- Sources and licences for every painting in `ART_CREDITS.md`; portrait photographer credit.
 - Plus every `[bracketed]` value in `assets/content/content.json` (best edited in the admin after seeding).
 
 ## Environment notes for whoever continues
