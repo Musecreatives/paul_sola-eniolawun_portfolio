@@ -37,6 +37,9 @@ String explain(Object e) {
     }
     final m = e.response['message'];
     if (m is String && m.isNotEmpty) return m;
+    // A 404 without PocketBase's JSON body: no CMS behind /api/ on this host
+    // (a static preview such as Netlify).
+    if (e.statusCode == 404) return 'No CMS answers on this host. The admin works on the Docker deployment.';
   }
   return 'Something went wrong: $e';
 }

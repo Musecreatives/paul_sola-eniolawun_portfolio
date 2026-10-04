@@ -7,6 +7,7 @@ The site runs as two containers, plus an optional third for HTTPS:
 | `web` | nginx serving the Flutter web build. Proxies `/api/` and `/_/` to PocketBase on the same origin. | `${WEB_PORT:-8080}` on the host, 80 inside |
 | `pocketbase` | PocketBase v0.40.4 with `pb_migrations/` and `pb_hooks/` mounted read-only. Data lives in the `pb_data` volume. | 8090, internal only |
 | `caddy` (profile `tls`) | Automatic HTTPS for `$DOMAIN`, reverse proxy to `web`. Adds HSTS. | 80 and 443 |
+| `cloudflared` (profile `tunnel`) | Cloudflare Tunnel to `web`. Cloudflare serves HTTPS on your domain; the server opens no ports. Use it **instead of** `tls`. | none |
 
 Paths on the site:
 
@@ -48,6 +49,65 @@ docker compose --profile tls up -d --build
 Caddy gets the certificate on first start; `docker compose logs caddy` shows progress. With the `tls` profile only Caddy needs to be public, so set `WEB_PORT=127.0.0.1:8080` in `.env` (or firewall port 8080). Otherwise nginx is also reachable over plain HTTP on that port.
 
 The first build takes several minutes (Flutter SDK download and web compile). Later builds reuse the cached layers.
+
+## Cloudflare Tunnel and your domain (recommended for a home or private server)
+
+The tunnel makes an outbound connection from the server to Cloudflare, so you don't need a public IP, port forwarding or open firewall ports. Cloudflare handles the HTTPS certificate.
+
+### 1. Put the domain on Cloudflare
+
+In the Cloudflare dashboard, **Add a domain**, pick the Free plan, and change the nameservers at your registrar to the two Cloudflare gives you. Wait until the domain shows **Active**.
+
+### 2. Create the tunnel
+
+1. Open **Zero Trust → Networks → Tunnels → Create a tunnel**, choose **Cloudflared**, and name it (e.g. `portfolio`).
+2. On the install screen, choose **Docker**. Copy only the long token after `--token` in the command it shows. You don't need to run that command, because Compose runs cloudflared for you.
+3. Under **Public hostnames**, add:
+   - Hostname: your domain (leave the subdomain empty), e.g. `paulsolaeniolawun.com`
+   - Service: type `HTTP`, URL `web:80`
+
+   Add a second hostname for `www` with the same service if you want it. Cloudflare creates the DNS records itself.
+
+The URL must be `web:80`, the Compose service name. `localhost` would point at the cloudflared container itself.
+
+### 3. Configure and start
+
+In `.env`:
+
+```sh
+TUNNEL_TOKEN=eyJhIjoi...           # the token from step 2
+SITE_URL=https://paulsolaeniolawun.com
+DOMAIN=paulsolaeniolawun.com       # for reference; Caddy is not used
+WEB_PORT=127.0.0.1:8080            # nothing public on the server itself
+```
+
+```sh
+docker compose --profile tunnel up -d --build
+docker compose logs cloudflared    # look for "Registered tunnel connection" (4 of them)
+```
+
+Open `https://<your domain>/`. The tunnel shows **Healthy** in the dashboard.
+
+The canonical and social-preview tags in `web/index.html` already use `paulsolaeniolawun.com`. If the domain ever changes, update them there too.
+
+### 4. Cloudflare settings that matter for this site
+
+- **SSL/TLS → Edge Certificates → Always Use HTTPS**: on.
+- **Speed → Optimization → Rocket Loader**: off. It rewrites script tags, which the Content-Security-Policy blocks, and the page stays blank.
+- **Scrape Shield → Email Address Obfuscation**: off. It injects a script that the CSP blocks.
+- Caching: leave the defaults. nginx already sends the right `Cache-Control` headers. Don't add a "Cache Everything" rule, because the app shell has to revalidate after each deploy.
+
+### 5. Lock down the PocketBase dashboard (optional, recommended)
+
+`/_/` is password-protected, but you can also put Cloudflare Access in front of it. Go to **Zero Trust → Access → Applications → Add → Self-hosted**, set the domain and path `_`, and add a policy that allows only your email (one-time PIN). **Don't** protect `/api/` or `/admin`: the public site and the admin login both use `/api/`.
+
+### Visitor IPs through the tunnel
+
+cloudflared reaches nginx over the Compose network (a 172.x address), and nginx already trusts that range. It takes the visitor's address from Cloudflare's `X-Forwarded-For` and passes it to PocketBase as `X-Real-IP`, so the per-visitor rate limits still work.
+
+### Moving off Netlify
+
+Netlify can only serve the static app. It has no PocketBase, so the contact form, the live content and the admin login don't work there. Once the tunnel works, remove the custom domain from the Netlify project (or delete the project) so the domain only points at the tunnel.
 
 ## Accounts
 
@@ -139,7 +199,7 @@ PocketBase runs as uid 10001, hence the `chown`.
 
 ```sh
 git pull
-docker compose up -d --build                 # add --profile tls if you use Caddy
+docker compose --profile tunnel up -d --build   # or --profile tls, whichever you use
 docker image prune -f                        # optional: drop old image layers
 ```
 
@@ -158,12 +218,13 @@ The Flutter SDK is pinned the same way (`FLUTTER_VERSION` and `FLUTTER_SHA256` i
 
 ```sh
 docker compose ps                         # health of each service
-docker compose logs -f web pocketbase     # add caddy with the tls profile
+docker compose logs -f web pocketbase     # add cloudflared or caddy if you use them
 docker compose exec pocketbase wget -qO- http://127.0.0.1:8090/api/health
 ```
 
 - **`web` never starts**: it waits for `pocketbase` to be healthy. Check `docker compose logs pocketbase`. A failing migration or hook shows up there.
 - **502 on `/api/`**: PocketBase is down or restarting. nginx resolves it by name on each request, so it recovers on its own once PocketBase is back.
+- **Cloudflare shows 502 / "Bad gateway"**: the tunnel's public hostname must point at `http://web:80`, and `docker compose ps` must show `web` healthy. **Error 1033**: cloudflared isn't connected. Check `TUNNEL_TOKEN` and `docker compose logs cloudflared`.
 - **Caddy cannot get a certificate**: DNS for `DOMAIN` does not point at this server yet, or ports 80/443 are blocked. Fix it and run `docker compose restart caddy`.
 - **Uploads fail with 413**: nginx accepts up to 20 MB (`client_max_body_size` in `deploy/nginx/default.conf`). PocketBase also enforces each file field's own max size.
 - **Letters arrive but no email**: see the `[mail]` lines in the PocketBase log.

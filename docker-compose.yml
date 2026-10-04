@@ -4,6 +4,7 @@
 #   cp .env.example .env            # then edit it
 #   docker compose up -d --build                    # HTTP on ${WEB_PORT:-8080}
 #   docker compose --profile tls up -d --build      # + Caddy on 80/443 for $DOMAIN
+#   docker compose --profile tunnel up -d --build   # + Cloudflare Tunnel (no open ports)
 #
 # See docs/DEPLOY.md.
 
@@ -77,6 +78,22 @@ services:
       - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
+
+  # Cloudflare Tunnel: publishes the site on your Cloudflare domain without
+  # opening any port on the server. Create the tunnel in the Cloudflare
+  # dashboard, put its token in .env as TUNNEL_TOKEN, and point the public
+  # hostname at http://web:80. Use this instead of the tls profile, not with it.
+  cloudflared:
+    image: cloudflare/cloudflared:2026.9.3
+    profiles: ["tunnel"]
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      # Must be set in .env when using this profile.
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:-}
+    depends_on:
+      web:
+        condition: service_healthy
 
 volumes:
   pb_data:
