@@ -1,0 +1,11 @@
+# Netlify only (nginx ignores this file). Flutter copies web/ into the build.
+#
+# There is no PocketBase on Netlify, so /api/ and /_/ answer 404 instead of
+# falling through to index.html. The admin loads but can't sign in there; it
+# needs the Docker deployment (docs/DEPLOY.md).
+/api/*  /404  404
+/_/*    /404  404
+
+# Single-page app: every route (/works, /admin, ...) is index.html, so a direct
+# link or a refresh on a deep page doesn't hit Netlify's "Page not found".
+/*      /index.html  200
